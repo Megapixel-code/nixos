@@ -19,6 +19,7 @@
       waybar
       swaybg
       wofi
+      gimp3
 
       # utilities
       stow
