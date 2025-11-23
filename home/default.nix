@@ -6,15 +6,19 @@
 }:
 
 {
+  imports = [
+    ./formatters.nix
+  ];
+
   home = {
     username = "ivan";
     homeDirectory = "/home/ivan";
     stateVersion = "25.05"; # Required, static
-  };
 
-  home.packages = with pkgs; [
-    # inputs.quickshell.packages."${pkgs.system}".default # bar
-  ];
+    # packages = with pkgs; [
+    #   # inputs.quickshell.packages."${pkgs.system}".default # bar
+    # ];
+  };
 
   programs.neovim = {
     enable = true;
