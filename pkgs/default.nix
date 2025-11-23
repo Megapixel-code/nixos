@@ -1,9 +1,16 @@
-{ config, lib, inputs, pkgs, pkgs-unstable, ... }:
+{
+  config,
+  lib,
+  inputs,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 
 {
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages = 
+  environment.systemPackages =
     (with pkgs; [
       git # needed for flakes
       home-manager
@@ -41,8 +48,7 @@
       cargo
       typst
     ])
-    ++
-    (with pkgs-unstable; [
+    ++ (with pkgs-unstable; [
       deezer-enhanced
       sunsetr
       mangowc
@@ -53,4 +59,4 @@
   ];
 
   system.stateVersion = "25.05"; # Did you read the comment?
-} 
+}

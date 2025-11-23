@@ -8,6 +8,7 @@
 {
   editorconfig = {
     enable = true;
+
     settings = {
       "*" = {
         indent_style = "space";
