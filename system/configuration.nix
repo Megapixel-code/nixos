@@ -76,9 +76,9 @@
   users.users.ivan = {
     isNormalUser = true;
     extraGroups = [
-      "wheel"
+      "wheel" # Enable ‘sudo’ for the user.
       "networkmanager"
-    ]; # Enable ‘sudo’ for the user.
+    ];
     shell = pkgs.zsh;
     # packages = with pkgs; [
     # ];
@@ -96,10 +96,12 @@
       WLR_NO_HARDWARE_CURSORS = "1"; # weird cursor behavior
       NIXOS_OZONE_WL = "1"; # hint electrons apps to use wayland
       NIXOS_NVIM = "1"; # environement variable to tell nvim we are on nixos
+      MOZ_ENABLE_WAYLAND = "1"; # tell mozilla you are on wayland
     };
 
     variables = {
       EDITOR = "nvim";
+      BROWSER = "firefox";
     };
 
   };
@@ -107,8 +109,7 @@
   hardware = {
     graphics.enable = true;
 
-    # most wayland compositors need this
-    nvidia.modesetting.enable = true;
+    nvidia.modesetting.enable = true; # most wayland compositors need this
   };
 
   programs.zsh.enable = true;
