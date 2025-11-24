@@ -1,8 +1,8 @@
 { pkgs, ... }:
 let
-  cursorPackage = pkgs.hackneyed;
-  cursorName = "Hackneyed";
-  cursorSize = 24;
+  cursorPackage = pkgs.openzone-cursors;
+  cursorName = "OpenZone_Black";
+  cursorSize = 18;
 in
 {
   home.pointerCursor = {
