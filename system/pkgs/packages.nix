@@ -57,6 +57,7 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.blex-mono
+    nerd-fonts.comic-shanns-mono
   ];
 
   system.stateVersion = "25.05"; # Did you read the comment?
