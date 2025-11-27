@@ -43,12 +43,13 @@
       typst
 
       # language servers
-      clang-tools # c cpp
-      bash-language-server # bash
-
       lua-language-server # lua
       pyrefly # python
 
+      clang-tools # c cpp
+      bash-language-server # bash
+
+      superhtml # html
       tinymist # typst
       nil # nix
       nixd # nix
