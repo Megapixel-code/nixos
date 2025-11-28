@@ -50,8 +50,30 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
+  # xdg desktop config
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+
+    extraPortals = with pkgs; [
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
+    ];
+
+    config = {
+      common = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+        "org.freedesktop.impl.portal.Inhibit" = [ "none" ];
+      };
+    };
+  };
+
   # Enable the X11 windowing system and enable display manager
   # services.xserver.enable = true;
+
   # Display manager :
   programs.regreet.enable = true;
   services.greetd = {
