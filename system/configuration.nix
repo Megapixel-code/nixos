@@ -53,20 +53,24 @@
   # xdg desktop config
   xdg.portal = {
     enable = true;
-    xdgOpenUsePortal = true; # solve youtube flickering
+    wlr.enable = true;
+    xdgOpenUsePortal = true;
 
     extraPortals = with pkgs; [
-      xdg-desktop-portal
+      xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
     ];
 
     config = {
-      common = {
+      mango = {
         default = [ "gtk" ];
+        # exept thoses
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
         "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
         "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-        "org.freedesktop.impl.portal.Inhibit" = [ "none" ];
+
+        # wlr does not have this interface
+        "org.freedesktop.impl.portal.Inhibit" = [ ];
       };
     };
   };
