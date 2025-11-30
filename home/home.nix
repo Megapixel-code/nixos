@@ -49,6 +49,7 @@
       clang-tools # c cpp
       bash-language-server # bash
 
+      vscode-css-languageserver # css
       superhtml # html
       tinymist # typst
       nil # nix
