@@ -49,6 +49,7 @@
       clang-tools # c cpp
       bash-language-server # bash
 
+      vscode-json-languageserver # json/jsonc
       vscode-css-languageserver # css
       superhtml # html
       tinymist # typst
