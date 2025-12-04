@@ -23,6 +23,7 @@
       })
       gimp3
       tmux
+      fd
 
       # utilities
       stow
