@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
@@ -18,6 +19,12 @@
     # packages = with pkgs; [
     #   # inputs.quickshell.packages."${pkgs.system}".default # bar
     # ];
+
+    activation = {
+      create-screenshoot-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        mkdir -p $GRIM_DEFAULT_DIR
+      '';
+    };
   };
 
   programs.neovim = {
