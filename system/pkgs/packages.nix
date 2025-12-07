@@ -23,6 +23,7 @@
       })
       gimp3
       tmux
+      davinci-resolve
 
       # utilities
       stow
@@ -52,7 +53,7 @@
       pscircle # proccess viewer image generator
       waybar
       swww # bg daemon: TODO: change later to awww when pkg will be available
-      wofi # app launcher
+      rofi # app launcher
       inotify-tools
       swaynotificationcenter # notification deamon
 
