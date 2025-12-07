@@ -42,6 +42,7 @@
       imagemagick # image manipulation tool
       fd # find rewrite, directory searching
       skim # command line fuzy finder
+      wlr-randr # manage outputs in wayland
 
       bat
       tree
