@@ -69,6 +69,10 @@
 
       # formatters
       nixfmt-rfc-style # nix
+
+      # DAP
+      vscode-extensions.vscjava.vscode-java-debug
+      vscode-extensions.vscjava.vscode-java-test
     ];
   };
 
