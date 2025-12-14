@@ -46,6 +46,7 @@
       wlr-randr # manage outputs in wayland
       brightnessctl # read and control brightness
       bluetui # Bluetooth TUI control
+      ncpamixer # audio tui control
 
       bat
       tree
