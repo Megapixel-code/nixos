@@ -71,9 +71,6 @@
     };
   };
 
-  # Enable the X11 windowing system and enable display manager
-  # services.xserver.enable = true;
-
   # Display manager :
   programs.regreet.enable = true;
   services.greetd = {
@@ -86,9 +83,15 @@
     };
   };
 
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+  # services.xserver = {
+  #   # Enable the X11 server
+  #   # enable = true;
+  #   # Configure keymap in X11
+  #   xkb = {
+  #     layout = "us";
+  #     options = "caps:ctrl";
+  #   };
+  # };
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -150,8 +153,6 @@
   };
 
   programs.zsh.enable = true;
-
-  nixpkgs.config.allowUnfree = true; # required for yazi 7zz
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

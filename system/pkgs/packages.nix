@@ -8,6 +8,8 @@
 }:
 
 {
+  nixpkgs.config.allowUnfree = true; # required for yazi 7zz
+
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages =
@@ -47,7 +49,7 @@
       wlr-randr # manage outputs in wayland
       brightnessctl # read and control brightness
       bluetui # Bluetooth TUI control
-      ncpamixer # audio tui control
+      ncpamixer # audio TUI control
 
       bat
       tree
