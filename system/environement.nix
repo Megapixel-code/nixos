@@ -1,12 +1,14 @@
 {
-  config,
-  lib,
-  pkgs,
-  inputs,
   ...
 }:
 {
   environment = {
+    pathsToLink = [
+      # important, needed to use xdg.desktop.portals.enable
+      "/share/xdg-desktop-portal"
+      "/share/applications"
+    ];
+
     shellAliases = {
       # removes base aliases added by nix
       l = null;
@@ -34,6 +36,9 @@
       NIXOS_OZONE_WL = "1"; # hint electrons apps to use wayland
       NIXOS_NVIM = "1"; # environement variable to tell nvim we are on nixos
       MOZ_ENABLE_WAYLAND = "1"; # tell mozilla you are on wayland
+
+      GTK_USE_PORTAL = "1"; # for outdated gtk programs termfilechooser
+      GDK_DEBUG = "portals"; # for termfilechooser
     };
 
     variables = {

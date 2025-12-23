@@ -13,7 +13,6 @@
 {
   imports = [
     ./environement.nix
-    ./xdg-desktop.nix
     ./keyboard.nix
 
     ./pkgs/packages.nix
