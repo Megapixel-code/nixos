@@ -15,10 +15,7 @@
       ];
 
       config = {
-        # executable file found by following the instructions in here:
-        # /nix/store/...{store version}.../sw/lib/systemd/user
-        # config files here:
-        # /nix/store/...{store version}.../etc/xdg/xdg-desktop-portal
+        # to find XDG files : got to the {hash} of the new version and find file named xdg-desktop*
 
         # pattern :
         # {name} -> "{name}-" -> {name}-portals.conf file
@@ -40,17 +37,28 @@
       };
     };
 
-    configFile."xdg-desktop-portal-termfilechooser/config" = {
-      force = true;
-      text = ''
-        [filechooser]
-        cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
-        default_dir=$HOME/downloads
-        create_help_file=1
-        env=TERMCMD=kitty
-        open_mode=suggested
-        save_mode=last
-      '';
+    configFile = {
+      "xdg-desktop-portal-termfilechooser/config" = {
+        force = true;
+        executable = true;
+        text = ''
+          [filechooser]
+          cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+          default_dir=$HOME/downloads
+          create_help_file=1
+          env=TERMCMD='kitty --title filechooser'
+          open_mode=suggested
+          save_mode=last
+        '';
+      };
+      # FIXME: temporary solution to lunch termfilechooser. SEE : https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser/issues/56#issue-3754883696
+      "xdg-desktop-portal-termfilechooser/startup.sh" = {
+        force = true;
+        executable = true;
+        text = ''
+          ${pkgs.xdg-desktop-portal-termfilechooser}/libexec/xdg-desktop-portal-termfilechooser -r
+        '';
+      };
     };
   };
 }
