@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
+
 let
   cursorPackage = pkgs.openzone-cursors;
   cursorName = "OpenZone_Black";
