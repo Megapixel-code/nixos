@@ -47,6 +47,7 @@
       brightnessctl # read and control brightness
       bluetui # Bluetooth TUI control
       ncpamixer # audio TUI control
+      ntfs3g # read/fix ntfs file systems
 
       bat
       tree
