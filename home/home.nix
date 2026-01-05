@@ -13,6 +13,7 @@
     ./programs/git.nix
     ./programs/nvim.nix
     ./programs/yazi.nix
+    ./programs/bat.nix
   ];
 
   home = {
