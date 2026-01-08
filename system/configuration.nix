@@ -115,6 +115,8 @@
       "networkmanager"
     ];
     shell = pkgs.zsh;
+    ignoreShellProgramCheck = true; # NOTE: fine because programs.zsh.enable = true; in home
+
     # packages = with pkgs; [
     # ];
   };
@@ -124,8 +126,6 @@
 
     nvidia.modesetting.enable = true; # most wayland compositors need this
   };
-
-  programs.zsh.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -16,6 +16,7 @@
     ./programs/bat.nix
     ./programs/sunsetr.nix
     ./programs/gnupg.nix
+    ./programs/zsh.nix
   ];
 
   home = {
