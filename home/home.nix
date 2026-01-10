@@ -17,6 +17,7 @@
     ./programs/sunsetr.nix
     ./programs/gnupg.nix
     ./programs/zsh.nix
+    ./programs/neomutt.nix
   ];
 
   home = {

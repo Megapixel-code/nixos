@@ -20,7 +20,6 @@
 
       # apps
       kitty
-      neovim
       (yazi.override {
         _7zz = _7zz-rar; # support for RAR extraction
       })
@@ -41,6 +40,8 @@
       fzf
       ripgrep
       wget
+      pass-wayland # password manager for neomutt
+      lynx # dependency of neomutt, to see html in terminal
       grim # screenshoot tool
       slurp # select region in wayland
       imagemagick # image manipulation tool

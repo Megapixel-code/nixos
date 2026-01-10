@@ -35,6 +35,11 @@
       NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc"; # NOTE: look in xdg-desktop.nix
       XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
       XCOMPOSECACHE = "$XDG_CONFIG_HOME/X11/xcompose";
+      GNUPGHOME = "$XDG_DATA_HOME/gnupg"; # NOTE: look in gnupg.nix
+      PASSWORD_STORE_DIR = "$XDG_DATA_HOME/pass";
+      MAIL = "$XDG_DATA_HOME/mail"; # neomutt
+      MAILDIR = "$XDG_DATA_HOME/mail"; # neomutt
+
       GRIM_DEFAULT_DIR = "$HOME/images/screenshoots"; # NOTE: look in home.nix > activation
 
       WLR_NO_HARDWARE_CURSORS = "1"; # weird cursor behavior
