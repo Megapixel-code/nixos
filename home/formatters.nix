@@ -19,8 +19,9 @@
 
       "*.{sh,zsh}" = {
         # https://github.com/mvdan/sh
+        indent_style = "tab";
         # [language-dialect]
-        shell_variant = "posix";
+        shell_variant = "bash";
         simplify = "true";
         binary_next_line = "true";
         # [case-indent]
