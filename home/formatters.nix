@@ -10,27 +10,11 @@
     enable = true;
 
     settings = {
-      "*.*" = {
+      "*" = {
         indent_style = "space";
         indent_size = "3";
         trim_trailing_whitespace = "true";
         insert_final_newline = "true";
-      };
-
-      "{*.{sh,zsh},*}" = {
-        # https://github.com/mvdan/sh
-        indent_style = "tab";
-        # [language-dialect]
-        shell_variant = "bash";
-        simplify = "true";
-        binary_next_line = "true";
-        # [case-indent]
-        switch_case_indent = "true";
-        space_redirects = "true";
-        keep_padding = "true";
-        # [func-next-line]
-        function_next_line = "false";
-        minify = "false";
       };
 
       "*.lua" = {
