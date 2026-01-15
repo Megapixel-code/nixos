@@ -10,14 +10,14 @@
     enable = true;
 
     settings = {
-      "*" = {
+      "*.*" = {
         indent_style = "space";
         indent_size = "3";
         trim_trailing_whitespace = "true";
         insert_final_newline = "true";
       };
 
-      "*.{sh,zsh}" = {
+      "{*.{sh,zsh},*}" = {
         # https://github.com/mvdan/sh
         indent_style = "tab";
         # [language-dialect]
