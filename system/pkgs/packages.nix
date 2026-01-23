@@ -20,13 +20,15 @@
 
       # apps
       kitty
+      tmux
       (yazi.override {
         _7zz = _7zz-rar; # support for RAR extraction
       })
+      inkscape # pdf / svg
       gimp3
-      inkscape
-      tmux
       davinci-resolve
+      bluetui # Bluetooth TUI control
+      impala # Network TUI control
 
       # utilities
       stow
@@ -53,7 +55,6 @@
       wlr-randr # manage outputs in wayland
       ntfs3g # read/fix ntfs file systems
       brightnessctl # read and control brightness
-      bluetui # Bluetooth TUI control
       ncpamixer # audio TUI control
 
       bat
@@ -84,7 +85,6 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.blex-mono
-    nerd-fonts.comic-shanns-mono
   ];
 
   system.stateVersion = "25.05"; # Did you read the comment?
