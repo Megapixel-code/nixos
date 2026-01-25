@@ -26,6 +26,7 @@
       davinci-resolve
       bluetui # Bluetooth TUI control
       impala # Network TUI control
+      libreoffice
 
       # utilities
       stow
