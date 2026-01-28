@@ -74,6 +74,7 @@
       cargo
       typst
       lua
+      scala
     ])
     ++ (with pkgs-unstable; [
       deezer-enhanced

@@ -29,6 +29,7 @@
       lua-language-server # lua
       pyrefly # python
       jdt-language-server # java
+      metals # scala
 
       clang-tools # c cpp
       bash-language-server # bash
