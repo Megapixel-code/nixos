@@ -52,6 +52,10 @@
       # DAP
       vscode-extensions.vscjava.vscode-java-debug
       vscode-extensions.vscjava.vscode-java-test
+
+      # plugins
+      nodejs # Markdown Preview
+      yarn # Markdown Preview
     ];
   };
 }
