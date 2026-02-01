@@ -13,6 +13,7 @@
       util-linux # dependency of mount plugin
       trash-cli # dependency of restore plugin
       git
+      dragon-drop # drag and drop
     ];
 
     settings = {
@@ -95,6 +96,12 @@
           ];
           run = "plugin compress";
           desc = "Archive selected files";
+        }
+
+        # drag and drop
+        {
+          on = "<C-n>";
+          run = "shell 'dragon-drop -x -i -T \"$1\"' --confirm";
         }
       ];
     };
