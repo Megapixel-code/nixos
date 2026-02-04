@@ -24,6 +24,7 @@
       inkscape # pdf / svg
       gimp3
       davinci-resolve
+      obs-studio
       bluetui # Bluetooth TUI control
       impala # Network TUI control
       libreoffice
