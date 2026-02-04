@@ -40,6 +40,7 @@
           specialArgs = mkSpecialArgs;
           modules = [
             ./hosts/nixos-main/hardware-configuration.nix
+            ./hosts/nixos-main/configuration.nix
             ./default.nix
           ];
         };
@@ -48,6 +49,7 @@
           specialArgs = mkSpecialArgs;
           modules = [
             ./hosts/nixos-school/hardware-configuration.nix
+            ./hosts/nixos-school/configuration.nix
             ./default.nix
           ];
         };
