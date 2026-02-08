@@ -2,4 +2,7 @@
   ...
 }:
 {
+  imports = [
+    ./hardware-configuration.nix
+  ];
 }

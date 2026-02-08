@@ -19,40 +19,69 @@
 
   outputs =
     inputs@{
-      self,
       nixpkgs,
       home-manager,
       ...
     }:
     let
       system = "x86_64-linux";
+      user = "ivan";
       # pkgs = nixpkgs.legacyPackages.${system};
       pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
-      mkSpecialArgs = {
-        inherit inputs;
-        inherit pkgs-unstable;
-        inherit home-manager;
-      };
     in
     {
-      nixosConfigurations = {
-        nixos-main = nixpkgs.lib.nixosSystem {
-          specialArgs = mkSpecialArgs;
-          modules = [
-            ./hosts/nixos-main/hardware-configuration.nix
-            ./hosts/nixos-main/configuration.nix
-            ./default.nix
+      nixosConfigurations =
+        let
+          inherit (nixpkgs) lib; # dont use "nixpkgs.lib", just use "lib"
+          hostNames = [
+            "nixos-main"
+            "nixos-school"
           ];
-        };
+          commonModules = [
+            ./system/main.nix
+          ];
+        in
 
-        nixos-school = nixpkgs.lib.nixosSystem {
-          specialArgs = mkSpecialArgs;
-          modules = [
-            ./hosts/nixos-school/hardware-configuration.nix
-            ./hosts/nixos-school/configuration.nix
-            ./default.nix
-          ];
-        };
-      };
+        lib.pipe hostNames [
+          (map (
+            hostName:
+            lib.nameValuePair hostName (
+              lib.nixosSystem {
+                specialArgs = {
+                  inherit inputs;
+                  inherit pkgs-unstable;
+                  inherit home-manager;
+                  inherit user;
+                };
+                modules = commonModules ++ [
+                  { networking.hostName = hostName; } # set the hostname
+                  (./. + "/hosts/${hostName}/configuration.nix") # to get a absolute path
+
+                  home-manager.nixosModules.home-manager
+                  {
+                    # make home-manager as a module of nixos
+                    # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+                    home-manager = {
+                      useUserPackages = true; # Packages install to /etc/profiles
+                      useGlobalPkgs = true; # Use global package definitions
+                      backupFileExtension = "backup"; # backup file instead of overriding it
+
+                      users.${user} = import ./home/home.nix; # path of the home
+
+                      extraSpecialArgs = { inherit inputs; }; # to pass arguments to home.nix
+                    };
+                  }
+                ];
+              }
+            )
+          ))
+          lib.listToAttrs
+        ];
+
+      # equivalent to something like this :
+      # ${hostName} = nixpkgs.lib.nixosSystem {
+      #   ...
+      # };
+      # ...
     };
 }
