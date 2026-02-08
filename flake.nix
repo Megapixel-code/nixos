@@ -52,6 +52,7 @@
                   inherit pkgs-unstable;
                   inherit home-manager;
                   inherit user;
+                  inherit hostName;
                 };
                 modules = commonModules ++ [
                   { networking.hostName = hostName; } # set the hostname
@@ -68,7 +69,12 @@
 
                       users.${user} = import ./home/home.nix; # path of the home
 
-                      extraSpecialArgs = { inherit inputs; }; # to pass arguments to home.nix
+                      extraSpecialArgs = {
+                        # to pass arguments to home.nix
+                        inherit inputs;
+                        inherit user;
+                        inherit hostName;
+                      };
                     };
                   }
                 ];

@@ -8,6 +8,7 @@
     ./formatters.nix
     ./xdg-desktop.nix
     ./cursor.nix
+    ./mango.nix
 
     ./programs/firefox.nix
     ./programs/git.nix
