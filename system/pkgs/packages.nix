@@ -22,6 +22,7 @@
       mangowc
       kitty
       tmux
+      deezer-enhanced
       inkscape # pdf / svg
       gimp3
       davinci-resolve
@@ -32,6 +33,7 @@
       vlc
 
       # utilities
+      sunsetr
       stow
       gnumake # make
       cmake
@@ -84,8 +86,6 @@
       python3
     ])
     ++ (with pkgs-unstable; [
-      deezer-enhanced
-      sunsetr
     ]);
 
   fonts.packages = with pkgs; [
