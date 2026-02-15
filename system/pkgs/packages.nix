@@ -19,6 +19,7 @@
       home-manager
 
       # apps
+      mangowc
       kitty
       tmux
       inkscape # pdf / svg
@@ -85,7 +86,6 @@
     ++ (with pkgs-unstable; [
       deezer-enhanced
       sunsetr
-      mangowc
     ]);
 
   fonts.packages = with pkgs; [
