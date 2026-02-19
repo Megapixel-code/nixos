@@ -32,7 +32,7 @@
         '';
       };
 
-      # have npm follow xdg-base-directory specification
+      # [xdg-base-directory specification]
       "npm/npmrc" = {
         force = true;
         text = ''
@@ -40,6 +40,13 @@
           cache=''${XDG_CACHE_HOME}/npm
           init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
           logs-dir=''${XDG_STATE_HOME}/npm/logs
+        '';
+      };
+
+      "wgetrc" = {
+        force = true;
+        text = ''
+          hsts-file = ${config.xdg.dataHome}/wget-hsts
         '';
       };
     };

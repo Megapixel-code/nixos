@@ -39,6 +39,7 @@
       PASSWORD_STORE_DIR = "$XDG_DATA_HOME/pass";
       MAIL = "$XDG_DATA_HOME/mail"; # neomutt
       MAILDIR = "$XDG_DATA_HOME/mail"; # neomutt
+      WGETRC = "$XDG_CONFIG_HOME/wgetrc"; # NOTE: look in xdg-desktop.nix
 
       GRIM_DEFAULT_DIR = "$HOME/images/screenshoots"; # NOTE: look in home.nix > activation
 
