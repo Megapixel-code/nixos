@@ -19,7 +19,6 @@
       home-manager
 
       # apps
-      mangowc
       kitty
       tmux
       deezer-enhanced
@@ -86,6 +85,7 @@
       python3
     ])
     ++ (with pkgs-unstable; [
+      mangowc
     ]);
 
   fonts.packages = with pkgs; [
