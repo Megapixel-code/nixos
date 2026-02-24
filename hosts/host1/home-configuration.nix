@@ -4,6 +4,6 @@
 {
   imports = [
     ../../home/home.nix
-    ../server-defaults.nix
+    ../server-home-defaults.nix
   ];
 }
