@@ -36,6 +36,7 @@
           hostNames = [
             "nixos-main"
             "nixos-school"
+            "host1"
           ];
           commonModules = [
             ./system/main.nix
@@ -67,7 +68,7 @@
                       useGlobalPkgs = true; # Use global package definitions
                       backupFileExtension = "backup"; # backup file instead of overriding it
 
-                      users.${user} = import ./home/home.nix; # path of the home
+                      users.${user} = import (./. + "/hosts/${hostName}/home-configuration.nix");
 
                       extraSpecialArgs = {
                         # to pass arguments to home.nix

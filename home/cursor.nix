@@ -1,5 +1,7 @@
 {
   pkgs,
+  lib,
+  config,
   ...
 }:
 
@@ -9,17 +11,23 @@ let
   cursorSize = 18;
 in
 {
-  home.pointerCursor = {
-    package = cursorPackage;
-    name = cursorName;
-    size = cursorSize;
-    x11.enable = true;
-    gtk.enable = true;
+  options = {
+    custom_cursor.enable = lib.mkEnableOption "enable custom_cursor";
   };
 
-  gtk.cursorTheme = {
-    package = cursorPackage;
-    name = cursorName;
-    size = cursorSize;
+  config = lib.mkIf config.custom_cursor.enable {
+    home.pointerCursor = {
+      package = cursorPackage;
+      name = cursorName;
+      size = cursorSize;
+      x11.enable = true;
+      gtk.enable = true;
+    };
+
+    gtk.cursorTheme = {
+      package = cursorPackage;
+      name = cursorName;
+      size = cursorSize;
+    };
   };
 }
