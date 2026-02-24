@@ -2,5 +2,5 @@
   ...
 }:
 {
-  custom_cursor = false;
+  custom_cursor.enable = false;
 }
