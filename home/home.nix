@@ -32,7 +32,7 @@
     activation = {
       create-screenshoot-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         mkdir -p $GRIM_DEFAULT_DIR
-      ''; # $HOME/images/screenshoots/
+      ''; # $HOME/pictures/screenshoots/
       create-documents-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         mkdir -p $HOME/documents/projects/
       ''; # $HOME/documents/

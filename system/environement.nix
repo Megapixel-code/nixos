@@ -23,7 +23,7 @@
       XDG_CACHE_HOME = "$HOME/.cache";
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_STATE_HOME = "$HOME/.local/state";
-      XDG_PICTURES_DIR = "$HOME/images";
+      XDG_PICTURES_DIR = "$HOME/pictures/";
       XDG_DOWNLOAD_DIR = "$HOME/downloads";
       XDG_CONFIG_DIR = "/etc/xdg";
       # partialy suported
@@ -41,7 +41,7 @@
       MAILDIR = "$XDG_DATA_HOME/mail"; # neomutt
       WGETRC = "$XDG_CONFIG_HOME/wgetrc"; # NOTE: look in xdg-desktop.nix
 
-      GRIM_DEFAULT_DIR = "$HOME/images/screenshoots"; # NOTE: look in home.nix > activation
+      GRIM_DEFAULT_DIR = "$HOME/pictures/screenshoots"; # NOTE: look in home.nix > activation
 
       WLR_NO_HARDWARE_CURSORS = "1"; # weird cursor behavior
       NIXOS_OZONE_WL = "1"; # hint electrons apps to use wayland
