@@ -55,6 +55,59 @@
       ];
     };
 
+    theme.icon = {
+      dirs = [
+        {
+          name = ".config";
+          text = "";
+        }
+        {
+          name = ".git";
+          text = "";
+        }
+        {
+          name = ".github";
+          text = "";
+        }
+        {
+          name = "desktop";
+          text = "";
+        }
+        {
+          name = "documents";
+          text = "";
+        }
+        {
+          name = "dotfiles_stow";
+          text = "";
+        }
+        {
+          name = "downloads";
+          text = "";
+        }
+        {
+          name = "music";
+          text = "";
+        }
+        {
+          name = "pictures";
+          text = "";
+        }
+        {
+          name = "public";
+          text = "";
+        }
+        {
+          name = "templates";
+          text = "";
+        }
+        {
+          name = "videos";
+          text = "";
+        }
+      ];
+    };
+
     keymap = {
       mgr.prepend_keymap = [
         # wl-clipboard plugin
