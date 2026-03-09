@@ -9,16 +9,13 @@
   lib,
   config,
   user,
+  import-tree,
   ...
 }:
 
 {
   imports = [
-    ./environement.nix
-    ./keyboard.nix
-
-    ./pkgs/packages.nix
-    ./pkgs/programs/gnupg-agent.nix
+    (import-tree ./modules)
   ];
 
   config = lib.mkMerge [

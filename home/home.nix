@@ -7,11 +7,9 @@
 
 {
   imports = [
-    ./formatters.nix
-    ./xdg-desktop.nix
-    ./cursor.nix
     ./options.nix
 
+    (import-tree ./modules)
     (import-tree ./programs)
   ];
 

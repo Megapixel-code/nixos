@@ -5,7 +5,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../personal-config-defaults.nix
+    ../personal-system-defaults.nix
   ];
 
   # Load nvidia driver for Xorg and Wayland

@@ -4,6 +4,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../server-config-defaults.nix
+    ../server-system-defaults.nix
   ];
 }
