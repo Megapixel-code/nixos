@@ -21,6 +21,7 @@
     ./programs/gnupg.nix
     ./programs/zsh.nix
     ./programs/mail.nix
+    ./programs/nh.nix
   ];
 
   home = {
