@@ -1,9 +1,14 @@
 {
+  lib,
   ...
 }:
 {
   imports = [
-    ../../home/home.nix
     ../personal-home-defaults.nix
   ];
+
+  my.pkgs = {
+    editors.enable = lib.mkForce false;
+    games.enable = lib.mkForce false;
+  };
 }

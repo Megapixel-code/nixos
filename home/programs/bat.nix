@@ -1,13 +1,12 @@
 {
+  config,
   ...
 }:
 {
   programs.bat = {
-    enable = true;
+    enable = config.my.pkgs.utilities.user.enable;
 
     config = {
-      # This is `bat`s configuration file. Each line either contains a comment or
-      # a command-line option that you want to pass to `bat` by default. You can
       # run `bat --help` to get a list of all possible configuration options.
 
       # batcat --list-themes

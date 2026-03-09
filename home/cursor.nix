@@ -11,11 +11,7 @@ let
   cursorSize = 18;
 in
 {
-  options = {
-    custom_cursor.enable = lib.mkEnableOption "enable custom_cursor";
-  };
-
-  config = lib.mkIf config.custom_cursor.enable {
+  config = lib.mkIf config.my.custom-cursor.enable {
     home.pointerCursor = {
       package = cursorPackage;
       name = cursorName;

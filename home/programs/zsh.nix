@@ -1,9 +1,9 @@
 {
-  config,
   ...
 }:
 {
+  # TODO: bash or zsh config to have yazi native cmd
   programs.zsh = {
-    enable = true;
+    enable = false;
   };
 }

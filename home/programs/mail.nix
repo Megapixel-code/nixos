@@ -3,6 +3,7 @@
 }:
 {
   programs.aerc = {
-    enable = true;
+    enable = false;
+    # TODO: mail
   };
 }

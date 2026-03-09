@@ -1,9 +1,10 @@
 {
+  config,
   ...
 }:
 {
   programs.firefox = {
-    enable = true;
+    enable = config.my.pkgs.apps.enable;
 
     # https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265
     # ---- POLICIES ----

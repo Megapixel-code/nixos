@@ -69,6 +69,9 @@
                       backupFileExtension = "backup"; # backup file instead of overriding it
 
                       users.${user} = import (./. + "/hosts/${hostName}/home-configuration.nix");
+                      sharedModules = [
+                        ./home/home.nix
+                      ];
 
                       extraSpecialArgs = {
                         # to pass arguments to home.nix

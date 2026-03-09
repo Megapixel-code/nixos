@@ -5,6 +5,11 @@
 }:
 
 {
+  nix.settings = {
+    # makes nix follow xdg base dir specification
+    use-xdg-base-directories = true;
+  };
+
   xdg = {
     enable = true; # enable setting up xdg environment variables
     # environment variables directories

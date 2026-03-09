@@ -1,5 +1,6 @@
 {
   lib,
+  user,
   ...
 }:
 
@@ -8,8 +9,9 @@
     ./formatters.nix
     ./xdg-desktop.nix
     ./cursor.nix
-    ./mango.nix
+    ./options.nix
 
+    ./programs/mango.nix
     ./programs/firefox.nix
     ./programs/git.nix
     ./programs/nvim.nix
@@ -22,12 +24,8 @@
   ];
 
   home = {
-    username = "ivan";
-    homeDirectory = "/home/ivan";
-
-    # packages = with pkgs; [
-    #   # inputs.quickshell.packages."${pkgs.system}".default # bar
-    # ];
+    username = "${user}";
+    homeDirectory = "/home/${user}";
 
     activation = {
       create-screenshoot-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -35,7 +33,7 @@
       ''; # $HOME/pictures/screenshoots/
       create-documents-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         mkdir -p $HOME/documents/projects/
-      ''; # $HOME/documents/
+      ''; # $HOME/documents/projects/
     };
   };
 
