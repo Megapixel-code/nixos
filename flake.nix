@@ -15,12 +15,14 @@
     };
 
     xremap-flake.url = "github:xremap/nix-flake";
+    import-tree.url = "github:vic/import-tree";
   };
 
   outputs =
     inputs@{
       nixpkgs,
       home-manager,
+      import-tree,
       ...
     }:
     let
@@ -47,14 +49,22 @@
           (map (
             hostName:
             lib.nameValuePair hostName (
-              lib.nixosSystem {
-                specialArgs = {
+              let
+                commonSpecialArgs = {
                   inherit inputs;
-                  inherit pkgs-unstable;
-                  inherit home-manager;
                   inherit user;
                   inherit hostName;
+                  inherit import-tree;
                 };
+              in
+              lib.nixosSystem {
+                specialArgs = lib.mergeAttrsList [
+                  commonSpecialArgs
+                  {
+                    inherit pkgs-unstable;
+                    inherit home-manager;
+                  }
+                ];
                 modules = commonModules ++ [
                   { networking.hostName = hostName; } # set the hostname
                   (./. + "/hosts/${hostName}/configuration.nix") # to get a absolute path
@@ -73,12 +83,13 @@
                         ./home/home.nix
                       ];
 
-                      extraSpecialArgs = {
-                        # to pass arguments to home.nix
-                        inherit inputs;
-                        inherit user;
-                        inherit hostName;
-                      };
+                      # to pass arguments to home.nix
+                      extraSpecialArgs = lib.mergeAttrsList [
+                        commonSpecialArgs
+                        {
+                          # rest of special args
+                        }
+                      ];
                     };
                   }
                 ];

@@ -1,6 +1,7 @@
 {
   lib,
   user,
+  import-tree,
   ...
 }:
 
@@ -11,17 +12,7 @@
     ./cursor.nix
     ./options.nix
 
-    ./programs/mango.nix
-    ./programs/firefox.nix
-    ./programs/git.nix
-    ./programs/nvim.nix
-    ./programs/yazi.nix
-    ./programs/bat.nix
-    ./programs/sunsetr.nix
-    ./programs/gnupg.nix
-    ./programs/zsh.nix
-    ./programs/mail.nix
-    ./programs/nh.nix
+    (import-tree ./programs)
   ];
 
   home = {
