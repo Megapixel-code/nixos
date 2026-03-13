@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     xremap-flake.url = "github:xremap/nix-flake";
     import-tree.url = "github:vic/import-tree";
   };
@@ -22,6 +27,7 @@
     inputs@{
       nixpkgs,
       home-manager,
+      sops-nix,
       import-tree,
       ...
     }:
@@ -42,6 +48,7 @@
           ];
           commonModules = [
             ./system/main.nix
+            sops-nix.nixosModules.sops
           ];
         in
 

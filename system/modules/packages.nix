@@ -65,6 +65,8 @@ let
       gcc
       curl
       wget
+      sops
+      age # simple encryption
       bear # used to create compilation db for clang
 
       unzip
