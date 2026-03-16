@@ -23,6 +23,7 @@ let
       scala
       fpc # free pascal
       python3
+      spark # TODO: remove this shit later probably ?
     ]
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-mango.enable [
       waybar
@@ -36,7 +37,7 @@ let
       rofi # app launcher
       swaynotificationcenter # notification deamon
     ])
-    ++ (lib.lists.optionals config.home-manager.users.${user}.my.personal-networking.enable [
+    ++ (lib.lists.optionals config.home-manager.users.${user}.my.networking.personal.enable [
       impala # Network TUI control
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-bluetooth.enable [

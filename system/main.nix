@@ -43,32 +43,6 @@
       };
     })
 
-    (lib.mkIf config.home-manager.users.${user}.my.personal-networking.enable {
-      users.users.${user} = {
-        extraGroups = [
-          "networkmanager"
-        ];
-      };
-
-      networking = {
-        networkmanager.enable = true;
-        wireless.iwd.enable = true; # needed for using impala network manager
-      };
-
-      # Configure network proxy if necessary
-      # networking.proxy.default = "http://user:password@proxy:port/";
-      # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-      # Enable the OpenSSH daemon.
-      # services.openssh.enable = true;
-
-      # Open ports in the firewall.
-      # networking.firewall.allowedTCPPorts = [ ... ];
-      # networking.firewall.allowedUDPPorts = [ ... ];
-      # Or disable the firewall altogether.
-      # networking.firewall.enable = false;
-    })
-
     (lib.mkIf config.home-manager.users.${user}.my.module-printing.enable {
       services = {
         printing.enable = true;

@@ -7,9 +7,10 @@
     module-mango.enable = lib.mkDefault true;
 
     custom-cursor.enable = lib.mkDefault true;
-    personal-networking.enable = lib.mkDefault true;
     module-bluetooth.enable = lib.mkDefault true;
     module-printing.enable = lib.mkDefault true;
+
+    networking.personal.enable = lib.mkDefault true;
 
     pkgs = {
       apps.enable = lib.mkDefault true;
