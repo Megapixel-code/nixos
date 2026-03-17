@@ -31,6 +31,9 @@
 
       services.openssh = {
         enable = false;
+
+        # added in /etc/ssh/
+        extraConfig = "HostKey /run/secrets/ssh/privateKeys/personal";
       };
 
       # Open ports in the firewall.
@@ -55,8 +58,6 @@
           config.sops.secrets."ssh/authorizedKeys/nixos-main".path
           config.sops.secrets."ssh/authorizedKeys/nixos-school".path
         ];
-
-        extraConfig = "HostKey /run/secrets/ssh/privateKeys/personal";
       };
     })
   ];
