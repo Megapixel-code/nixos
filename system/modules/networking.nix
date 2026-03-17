@@ -30,17 +30,14 @@
       # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
       services.openssh = {
-        enable = true;
-        authorizedKeysInHomedir = false;
-        openFirewall = config.services.openssh.enable; # FIXME: cant set it to false ?
-
-        knownHosts.servers = {
-          publicKey = "balls";
-        };
-
-        # added in /etc/ssh/
-        extraConfig = "HostKey /run/secrets/ssh/privateKeys/personal";
+        enable = false;
       };
+
+      system.activationScripts."ssh-personal-init".text = ''
+        mkdir -p "/home/${user}/.ssh";
+        cp "${config.sops.secrets."ssh/privateKeys/personal".path}" "/home/${user}/.ssh/id_ed25519";
+        chmod +r "/home/${user}/.ssh/id_ed25519";
+      '';
 
       # Open ports in the firewall.
       # networking.firewall.allowedTCPPorts = [ ... ];
@@ -66,6 +63,11 @@
           config.sops.secrets."ssh/publicKeys/nixos-school".path
         ];
         extraConfig = "HostKey /run/secrets/ssh/privateKeys/servers";
+
+        settings = {
+          PasswordAuthentication = false;
+          PermitRootLogin = false;
+        };
       };
     })
   ];
