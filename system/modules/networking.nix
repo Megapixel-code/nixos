@@ -30,7 +30,13 @@
       # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
       services.openssh = {
-        enable = false;
+        enable = true;
+        authorizedKeysInHomedir = false;
+        openFirewall = config.services.openssh.enable; # FIXME: cant set it to false ?
+
+        knownHosts.server = {
+           publicKeyFile = # TODO: kasfdj;
+        };
 
         # added in /etc/ssh/
         extraConfig = "HostKey /run/secrets/ssh/privateKeys/personal";
@@ -52,12 +58,14 @@
 
       services.openssh = {
         enable = true;
+        openFirewall = true;
 
         # added in the config in /etc/ssh/sshd_config
         authorizedKeysFiles = [
           config.sops.secrets."ssh/authorizedKeys/nixos-main".path
           config.sops.secrets."ssh/authorizedKeys/nixos-school".path
         ];
+        extraConfig = # TODO: "HostKey /run/secrets/ssh/privateKeys/servers";
       };
     })
   ];
