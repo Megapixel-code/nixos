@@ -1,12 +1,11 @@
 {
   config,
   user,
-  hostName,
   ...
 }:
-let
-  secretUserName = "secrets";
-in
+# let
+#   secretUserName = "secrets";
+# in
 {
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
@@ -14,8 +13,11 @@ in
     age.keyFile = "${config.home-manager.users.${user}.xdg.configHome}/sops/age/keys.txt";
 
     secrets."ssh/privateKeys/personal" = { };
-    secrets."ssh/authorizedKeys/nixos-main" = { };
-    secrets."ssh/authorizedKeys/nixos-school" = { };
+    secrets."ssh/privateKeys/servers" = { };
+
+    secrets."ssh/publicKeys/nixos-main" = { };
+    secrets."ssh/publicKeys/nixos-school" = { };
+    secrets."ssh/publicKeys/host1" = { };
   };
 
   # users = {
@@ -40,7 +42,7 @@ in
   #       wantedBy = [ "default.target" ];
   #       script = ''
   #         echo "$(cat ${
-  #           config.sops.secrets."ssh/authorizedKeys/personal".path
+  #           config.sops.secrets."ssh/publicKeys/personal".path
   #         }) ${user}@${hostName}" > /var/lib/${secretUserName}/${serviceName}
   #       '';
   #       serviceConfig = {

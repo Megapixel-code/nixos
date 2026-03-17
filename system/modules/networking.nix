@@ -34,8 +34,8 @@
         authorizedKeysInHomedir = false;
         openFirewall = config.services.openssh.enable; # FIXME: cant set it to false ?
 
-        knownHosts.server = {
-           publicKeyFile = # TODO: kasfdj;
+        knownHosts.servers = {
+          publicKey = "balls";
         };
 
         # added in /etc/ssh/
@@ -62,10 +62,10 @@
 
         # added in the config in /etc/ssh/sshd_config
         authorizedKeysFiles = [
-          config.sops.secrets."ssh/authorizedKeys/nixos-main".path
-          config.sops.secrets."ssh/authorizedKeys/nixos-school".path
+          config.sops.secrets."ssh/publicKeys/nixos-main".path
+          config.sops.secrets."ssh/publicKeys/nixos-school".path
         ];
-        extraConfig = # TODO: "HostKey /run/secrets/ssh/privateKeys/servers";
+        extraConfig = "HostKey /run/secrets/ssh/privateKeys/servers";
       };
     })
   ];
