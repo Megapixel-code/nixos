@@ -4,6 +4,6 @@
 }:
 {
   programs.nh = {
-    enable = config.my.pkgs.utilities.user.enable;
+    enable = config.my.pkgs.utilities.system.enable;
   };
 }
