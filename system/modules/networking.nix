@@ -60,6 +60,8 @@
       services.openssh = {
         enable = true;
         openFirewall = true;
+        # generateHostKeys = false; # opt seems to not exist
+        hostKeys = [ ]; # unset this opt to not generate keys
 
         # added in the config in /etc/ssh/sshd_config
         authorizedKeysFiles = [
