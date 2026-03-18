@@ -2,6 +2,7 @@
   lib,
   config,
   user,
+  hostName,
   ...
 }:
 {
@@ -35,8 +36,11 @@
 
       system.activationScripts."ssh-personal-init".text = ''
         mkdir -p "/home/${user}/.ssh";
+        rm "/home/${user}/.ssh/id_ed25519*"
         cp "${config.sops.secrets."ssh/privateKeys/personal".path}" "/home/${user}/.ssh/id_ed25519";
+        cp "${config.sops.secrets."ssh/publicKeys/${hostName}".path}" "/home/${user}/.ssh/id_ed25519.pub";
         chmod +r "/home/${user}/.ssh/id_ed25519";
+        chmod +r "/home/${user}/.ssh/id_ed25519.pub";
       '';
 
       # Open ports in the firewall.
@@ -62,11 +66,10 @@
           config.sops.secrets."ssh/publicKeys/nixos-main".path
           config.sops.secrets."ssh/publicKeys/nixos-school".path
         ];
-        extraConfig = "HostKey /run/secrets/ssh/privateKeys/servers";
-
         settings = {
           PasswordAuthentication = false;
-          PermitRootLogin = false;
+          PermitRootLogin = "no";
+          HostKey = "/run/secrets/ssh/privateKeys/servers";
         };
       };
     })
