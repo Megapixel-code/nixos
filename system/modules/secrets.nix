@@ -16,7 +16,7 @@
     secrets."ssh/privateKeys/servers" = { };
 
     secrets."ssh/publicKeys/personal" = { };
-    secrets."ssh/publicKeys/host1" = { };
+    secrets."ssh/publicKeys/known_hosts" = { };
   };
 
   # users = {

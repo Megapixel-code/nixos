@@ -34,13 +34,17 @@
         enable = false;
       };
 
+      # FIXME: add groups and change permissions to g+r
       system.activationScripts."ssh-personal-init".text = ''
         mkdir -p "/home/${user}/.ssh";
-        rm "/home/${user}/.ssh/id_ed25519*"
+
         cp "${config.sops.secrets."ssh/privateKeys/personal".path}" "/home/${user}/.ssh/id_ed25519";
-        cp "${config.sops.secrets."ssh/publicKeys/${hostName}".path}" "/home/${user}/.ssh/id_ed25519.pub";
+        cp "${config.sops.secrets."ssh/publicKeys/personal".path}" "/home/${user}/.ssh/id_ed25519.pub";
+        cp "${config.sops.secrets."ssh/publicKeys/known_hosts".path}" "/home/${user}/.ssh/known_hosts";
+
         chmod +r "/home/${user}/.ssh/id_ed25519";
         chmod +r "/home/${user}/.ssh/id_ed25519.pub";
+        chmod +r "/home/${user}/.ssh/known_hosts";
       '';
 
       # Open ports in the firewall.
