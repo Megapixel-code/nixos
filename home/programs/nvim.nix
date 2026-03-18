@@ -34,8 +34,9 @@
       tinymist # typst
       neocmakelsp # cmake
       superhtml # html
-      vscode-json-languageserver # json/jsonc
       vscode-css-languageserver # css
+      vscode-json-languageserver # json/jsonc
+      yaml-language-server # yaml
 
       # formatters
       shfmt # bash

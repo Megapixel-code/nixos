@@ -83,7 +83,6 @@ let
       wl-clipboard
       inotify-tools
       ffmpeg
-      # git-crypt # manage secrets TODO: later
       # lynx # see html in terminal; TODO: dependency of neomutt maybe not needed
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.utilities.user.enable [
