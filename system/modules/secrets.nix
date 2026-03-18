@@ -15,8 +15,7 @@
     secrets."ssh/privateKeys/personal" = { };
     secrets."ssh/privateKeys/servers" = { };
 
-    secrets."ssh/publicKeys/nixos-main" = { };
-    secrets."ssh/publicKeys/nixos-school" = { };
+    secrets."ssh/publicKeys/personal" = { };
     secrets."ssh/publicKeys/host1" = { };
   };
 

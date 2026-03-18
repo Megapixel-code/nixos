@@ -1,7 +1,8 @@
 {
-  lib,
   ...
 }:
 {
-  my.networking.servers.enable = lib.mkDefault true;
+  my = {
+    pkgs.utilities.system.enable = true;
+  };
 }

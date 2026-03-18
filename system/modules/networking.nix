@@ -64,16 +64,18 @@
         hostKeys = [ ]; # unset this opt to not generate keys
 
         # added in the config in /etc/ssh/sshd_config
-        authorizedKeysFiles = [
-          config.sops.secrets."ssh/publicKeys/nixos-main".path
-          config.sops.secrets."ssh/publicKeys/nixos-school".path
-        ];
         settings = {
           PasswordAuthentication = false;
           PermitRootLogin = "no";
           HostKey = "/run/secrets/ssh/privateKeys/servers";
         };
       };
+
+      system.activationScripts."authorized-keys-files".text = ''
+        mkdir -p "/etc/ssh/authorized_keys.d";
+        cp ${config.sops.secrets."ssh/publicKeys/personal".path} "/etc/ssh/authorized_keys.d/${user}";
+        chmod +r "/etc/ssh/authorized_keys.d/${user}";
+      '';
     })
   ];
 }
