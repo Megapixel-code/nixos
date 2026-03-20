@@ -45,7 +45,7 @@ let
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.apps.enable [
       kitty
-      deezer-enhanced
+      deezer-desktop
       obs-studio
       libreoffice
       vlc
