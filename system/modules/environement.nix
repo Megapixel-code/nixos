@@ -28,7 +28,7 @@
         XDG_CACHE_HOME = "$HOME/.cache";
         XDG_DATA_HOME = "$HOME/.local/share";
         XDG_STATE_HOME = "$HOME/.local/state";
-        XDG_PICTURES_DIR = "$HOME/pictures/";
+        XDG_PICTURES_DIR = "$HOME/pictures";
         XDG_DOWNLOAD_DIR = "$HOME/downloads";
         XDG_CONFIG_DIR = "/etc/xdg";
         MAIL = "$XDG_DATA_HOME/mail";
