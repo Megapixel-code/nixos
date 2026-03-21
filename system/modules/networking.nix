@@ -48,6 +48,9 @@
       };
 
       # FIXME: add groups and change permissions to g+r
+      sops.secrets."ssh/privateKeys/personal" = { };
+      sops.secrets."ssh/publicKeys/personal" = { };
+      sops.secrets."ssh/publicKeys/known_hosts" = { };
       system.activationScripts."ssh-personal-init".text = ''
         mkdir -p "/home/${user}/.ssh";
 
@@ -79,6 +82,7 @@
       networking = {
       };
 
+      sops.secrets."ssh/privateKeys/servers" = { };
       services.openssh = {
         enable = true;
         openFirewall = true;
@@ -89,15 +93,14 @@
         settings = {
           PasswordAuthentication = false;
           PermitRootLogin = "no";
-          HostKey = "/run/secrets/ssh/privateKeys/servers";
+          HostKey = config.sops.secrets."ssh/privateKeys/servers".path;
         };
       };
 
-      system.activationScripts."authorized-keys-files".text = ''
-        mkdir -p "/etc/ssh/authorized_keys.d";
-        cp ${config.sops.secrets."ssh/publicKeys/personal".path} "/etc/ssh/authorized_keys.d/${user}";
-        chmod +r "/etc/ssh/authorized_keys.d/${user}";
-      '';
+      sops.secrets."ssh/publicKeys/personal" = {
+        path = "/etc/ssh/authorized_keys.d/${user}";
+        mode = "444";
+      };
     })
   ];
 }
