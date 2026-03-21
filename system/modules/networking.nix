@@ -26,12 +26,25 @@
         wireless.iwd.enable = true; # needed for using impala network manager
       };
 
-      # Configure network proxy if necessary
-      # networking.proxy.default = "http://user:password@proxy:port/";
-      # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-      services.openssh = {
-        enable = false;
+      # NOTE: taken from https://github.com/NixOS/nixpkgs/blob/ed142ab1b3a092c4d149245d0c4126a5d7ea00b0/nixos/modules/config/networking.nix#L175
+      sops.secrets."networking/localHostsIp/router" = { };
+      sops.templates."hosts" = {
+        content =
+          let
+            cfg = config.networking;
+            hostNames = # Note: The FQDN (canonical hostname) has to come first:
+              lib.optional (cfg.hostName != "" && cfg.domain != null) "${cfg.hostName}.${cfg.domain}"
+              ++ lib.optional (cfg.hostName != "") cfg.hostName; # Then the hostname (without the domain)
+            strHostNames = lib.concatStringsSep " " hostNames;
+          in
+          ''
+            127.0.0.1 localhost
+            ${lib.optionalString cfg.enableIPv6 "::1 localhost"}
+            127.0.0.2 ${strHostNames}
+            ${config.sops.placeholder."networking/localHostsIp/router"} router
+          '';
+        path = "/etc/hosts";
+        mode = "444"; # make it readable  TODO: make it readable only by group and root
       };
 
       # FIXME: add groups and change permissions to g+r
@@ -47,6 +60,14 @@
         chmod +r "/home/${user}/.ssh/known_hosts";
       '';
 
+      services.openssh = {
+        enable = false;
+      };
+
+      # Configure network proxy if necessary
+      # networking.proxy.default = "http://user:password@proxy:port/";
+      # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
       # Open ports in the firewall.
       # networking.firewall.allowedTCPPorts = [ ... ];
       # networking.firewall.allowedUDPPorts = [ ... ];
@@ -55,11 +76,8 @@
     })
 
     (lib.mkIf config.home-manager.users.${user}.my.networking.servers.enable {
-      # TODO: add nnetworking ? maybe not needed
-      # networking = {
-      #   networkmanager.enable = true;
-      #   wireless.iwd.enable = true; # needed for using impala network manager
-      # };
+      networking = {
+      };
 
       services.openssh = {
         enable = true;

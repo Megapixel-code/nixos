@@ -12,9 +12,9 @@
     defaultSopsFormat = "yaml";
     age.keyFile = "${config.home-manager.users.${user}.xdg.configHome}/sops/age/keys.txt";
 
+    # TODO: move secrets to their respective files
     secrets."ssh/privateKeys/personal" = { };
     secrets."ssh/privateKeys/servers" = { };
-
     secrets."ssh/publicKeys/personal" = { };
     secrets."ssh/publicKeys/known_hosts" = { };
   };
