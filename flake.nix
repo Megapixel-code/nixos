@@ -51,13 +51,12 @@
             sops-nix.nixosModules.sops
           ];
         in
-
         lib.pipe hostNames [
           (map (
             hostName:
             lib.nameValuePair hostName (
               let
-                commonSpecialArgs = {
+                sharedSpecialArgs = {
                   inherit inputs;
                   inherit user;
                   inherit hostName;
@@ -66,7 +65,7 @@
               in
               lib.nixosSystem {
                 specialArgs = lib.mergeAttrsList [
-                  commonSpecialArgs
+                  sharedSpecialArgs
                   {
                     inherit pkgs-unstable;
                     inherit home-manager;
@@ -92,7 +91,7 @@
 
                       # to pass arguments to home.nix
                       extraSpecialArgs = lib.mergeAttrsList [
-                        commonSpecialArgs
+                        sharedSpecialArgs
                         {
                           # rest of special args
                         }
