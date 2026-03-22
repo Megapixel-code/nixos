@@ -69,17 +69,30 @@
     })
 
     {
-      # enable flakes feature and the accompanying nix cmd-line tool
+      nix = {
+        settings = {
+          auto-optimise-store = true;
+        };
+        gc = {
+          automatic = true;
+          dates = "weekly";
+          options = "--delete-older-than 7d";
+        };
+      };
+
+      boot.loader = {
+        systemd-boot = {
+          enable = true;
+          configurationLimit = 20;
+        };
+        efi.canTouchEfiVariables = true;
+      };
+
       nix.settings.experimental-features = [
         "nix-command"
         "flakes"
       ];
 
-      # Use the systemd-boot EFI boot loader.
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.efi.canTouchEfiVariables = true;
-
-      # Set your time zone.
       time.timeZone = "Europe/Paris";
 
       # Select internationalisation properties.
