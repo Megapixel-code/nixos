@@ -2,7 +2,9 @@
   lib,
   config,
   user,
+  hostName,
   allPersonalHostNames,
+  allServerHostNames,
   ...
 }:
 {
@@ -48,20 +50,38 @@
       };
 
       # FIXME: add groups and change permissions to g+r
-      sops.secrets."ssh/privateKeys/personal" = { };
       sops.secrets."ssh/publicKeys/personal" = { };
-      sops.secrets."ssh/publicKeys/known_hosts" = { };
-      system.activationScripts."ssh-personal-init".text = ''
-        mkdir -p "/home/${user}/.ssh";
-
-        cp "${config.sops.secrets."ssh/privateKeys/personal".path}" "/home/${user}/.ssh/id_ed25519";
-        cp "${config.sops.secrets."ssh/publicKeys/personal".path}" "/home/${user}/.ssh/id_ed25519.pub";
-        cp "${config.sops.secrets."ssh/publicKeys/known_hosts".path}" "/home/${user}/.ssh/known_hosts";
-
-        chmod +r "/home/${user}/.ssh/id_ed25519";
-        chmod +r "/home/${user}/.ssh/id_ed25519.pub";
-        chmod +r "/home/${user}/.ssh/known_hosts";
-      '';
+      sops.templates."id_ed25519.pub" = {
+        content = ''
+          ${config.sops.placeholder."ssh/publicKeys/personal"} ${user}@${hostName}
+        '';
+        path = "/home/${user}/.ssh/id_ed25519.pub";
+        mode = "444";
+      };
+      sops.secrets."ssh/privateKeys/personal" = {
+        path = "/home/${user}/.ssh/id_ed25519";
+        mode = "444";
+      };
+      sops.secrets."ssh/publicKeys/servers" = { };
+      sops.templates."known_hosts" = {
+        content =
+          let
+            oneToString = (
+              ServerHostName:
+              lib.concatStringsSep " " [
+                ServerHostName
+                "${config.sops.placeholder."ssh/publicKeys/servers"}"
+              ]
+              + "\n"
+            );
+            allToString = lib.concatStrings (map oneToString allServerHostNames);
+          in
+          ''
+            ${allToString}
+          '';
+        path = "/home/${user}/.ssh/known_hosts";
+        mode = "444";
+      };
 
       services.openssh = {
         enable = false;
