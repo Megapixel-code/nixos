@@ -36,17 +36,21 @@
       user = "ivan";
       # pkgs = nixpkgs.legacyPackages.${system};
       pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
+
+      allPersonalHostNames = [
+        "nixos-main"
+        "nixos-school"
+      ];
+      allServerHostNames = [
+        "host1"
+      ];
     in
     {
       nixosConfigurations =
         let
           inherit (nixpkgs) lib; # dont use "nixpkgs.lib", just use "lib"
-          hostNames = [
-            "nixos-main"
-            "nixos-school"
-            "host1"
-          ];
-          commonModules = [
+          hostNames = allPersonalHostNames ++ allServerHostNames;
+          sharedModules = [
             ./system/main.nix
             sops-nix.nixosModules.sops
           ];
@@ -60,6 +64,8 @@
                   inherit inputs;
                   inherit user;
                   inherit hostName;
+                  inherit allServerHostNames;
+                  inherit allPersonalHostNames;
                   inherit import-tree;
                 };
               in
@@ -71,7 +77,7 @@
                     inherit home-manager;
                   }
                 ];
-                modules = commonModules ++ [
+                modules = sharedModules ++ [
                   { networking.hostName = hostName; } # set the hostname
                   (./. + "/hosts/${hostName}/configuration.nix") # to get a absolute path
 

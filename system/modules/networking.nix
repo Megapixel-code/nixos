@@ -2,7 +2,7 @@
   lib,
   config,
   user,
-  hostName,
+  allPersonalHostNames,
   ...
 }:
 {
@@ -97,7 +97,23 @@
         };
       };
 
-      sops.secrets."ssh/publicKeys/personal" = {
+      sops.secrets."ssh/publicKeys/personal" = { };
+      sops.templates."${user}" = {
+        content =
+          let
+            oneToString = (
+              personalHostName:
+              lib.concatStringsSep " " [
+                "${config.sops.placeholder."ssh/publicKeys/personal"}"
+                "${user}@${personalHostName}"
+              ]
+              + "\n"
+            );
+            allToString = lib.concatStrings (map oneToString allPersonalHostNames);
+          in
+          ''
+            ${allToString}
+          '';
         path = "/etc/ssh/authorized_keys.d/${user}";
         mode = "444";
       };
