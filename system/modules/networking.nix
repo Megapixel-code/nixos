@@ -46,21 +46,23 @@
             ${config.sops.placeholder."networking/localHostsIp/router"} router
           '';
         path = "/etc/hosts";
-        mode = "444"; # make it readable  TODO: make it readable only by group and root
+        mode = "440";
+        group = "wheel";
       };
 
-      # FIXME: add groups and change permissions to g+r
       sops.secrets."ssh/publicKeys/personal" = { };
       sops.templates."id_ed25519.pub" = {
         content = ''
           ${config.sops.placeholder."ssh/publicKeys/personal"} ${user}@${hostName}
         '';
         path = "/home/${user}/.ssh/id_ed25519.pub";
-        mode = "444";
+        mode = "440";
+        group = "wheel";
       };
       sops.secrets."ssh/privateKeys/personal" = {
         path = "/home/${user}/.ssh/id_ed25519";
-        mode = "444";
+        mode = "440";
+        group = "wheel";
       };
       sops.secrets."ssh/publicKeys/servers" = { };
       sops.templates."known_hosts" = {
@@ -80,7 +82,8 @@
             ${allToString}
           '';
         path = "/home/${user}/.ssh/known_hosts";
-        mode = "444";
+        mode = "440";
+        group = "wheel";
       };
 
       services.openssh = {
@@ -135,7 +138,8 @@
             ${allToString}
           '';
         path = "/etc/ssh/authorized_keys.d/${user}";
-        mode = "444";
+        mode = "440";
+        group = "wheel";
       };
     })
   ];

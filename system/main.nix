@@ -122,7 +122,7 @@
       users.users.${user} = {
         isNormalUser = true;
         extraGroups = [
-          "wheel" # Enable ‘sudo’ for the user.
+          "wheel" # Administration group
         ];
         shell = pkgs.zsh;
         ignoreShellProgramCheck = true; # NOTE: fine because programs.zsh.enable = true; in home
