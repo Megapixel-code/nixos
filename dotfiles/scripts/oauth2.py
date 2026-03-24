@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 
-# https://tilde.club/~djhsu/aerc-gmail-oauth2.html
+# NOTE: relevant links :
+# https://github.com/google/gmail-oauth2-tools/blob/master/python/oauth2.py
 # https://www.maths.tcd.ie/~fionn/misc/aerc/
 # https://mast.mathadvance.org/writing/tech/gmail-aerc
-# https://www.julioloayzam.com/guides/email-with-aerc/
+
+# NOTE: This is the one that worked :
+# https://tilde.club/~djhsu/aerc-gmail-oauth2.html
+# https://alpineapp.email/alpine/alpine-info/misc/RegisteringAlpineinGmail.html
 
 #
 # Copyright 2012 Google Inc.
