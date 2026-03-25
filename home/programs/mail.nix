@@ -1,9 +1,10 @@
 {
+  config,
   ...
 }:
 {
   programs.aerc = {
-    enable = false;
-    # TODO: mail
+    # enable = config.my.pkgs.apps.enable;
+    enable = true;
   };
 }
