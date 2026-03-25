@@ -207,10 +207,10 @@
                   { type = "string", custom = false, name = "cursor_position" },
                },
                section_b = {
-                  { type = "string", custom = false, name = "cursor_percentage" },
+                  { type = "string", custom = false, name = "hovered_file_extension", params = { true } },
                },
                section_c = {
-                  { type = "string",   custom = false, name = "hovered_file_extension", params = { true } },
+                  { type = "string", custom = false, name = "hovered_ownership" },
                   { type = "coloreds", custom = false, name = "permissions" },
                }
             }
