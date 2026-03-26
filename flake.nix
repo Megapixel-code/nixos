@@ -92,6 +92,7 @@
 
                       users.${user} = import (./. + "/hosts/${hostName}/home-configuration.nix");
                       sharedModules = [
+                        inputs.sops-nix.homeManagerModules.sops
                         ./home/home.nix
                       ];
 

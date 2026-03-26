@@ -8,6 +8,7 @@
 {
   imports = [
     ./options.nix
+    ./secrets.nix
 
     (import-tree ./modules)
     (import-tree ./programs)

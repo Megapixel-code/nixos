@@ -15,6 +15,7 @@
 
 {
   imports = [
+    ./secrets.nix
     (import-tree ./modules)
   ];
 
