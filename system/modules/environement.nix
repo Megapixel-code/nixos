@@ -48,6 +48,7 @@
         PASSWORD_STORE_DIR = "$XDG_DATA_HOME/pass";
         WGETRC = "$XDG_CONFIG_HOME/wgetrc"; # NOTE: look in xdg-desktop.nix
         CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
+        W3M_DIR = "$XDG_STATE_HOME/w3m";
 
         GRIM_DEFAULT_DIR = "$HOME/pictures/screenshoots"; # NOTE: look in home.nix > activation
 
