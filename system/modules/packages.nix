@@ -20,9 +20,10 @@ let
       cargo
       typst
       lua
-      scala
       fpc # free pascal
       python3
+      scala
+      coursier # TODO: remove this shit
       spark # TODO: remove this shit later probably ?
     ]
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-mango.enable [
