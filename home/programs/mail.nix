@@ -52,15 +52,29 @@ in
   config = lib.mkIf config.my.pkgs.apps.enable {
     programs.aerc = {
       enable = true;
+
+      extraBinds = { };
+      extraConfig = {
+        ui = {
+          reverse-thread-order = false;
+          threading-enabled = true;
+        };
+        filters = {
+          "text/plain" = "colorize";
+          "text/calendar" = "calendar";
+          "message/delivery-status" = "colorize";
+          "message/rfc822" = "colorize";
+          "text/html" = "! html";
+          ".headers" = "colorize";
+        };
+      };
     };
 
     sops.secrets = all_secrets;
-
     sops.templates."accounts.conf" = {
       content = all_gmail;
       path = "${config.xdg.configHome}/aerc/accounts.conf";
       mode = "400";
     };
-
   };
 }
