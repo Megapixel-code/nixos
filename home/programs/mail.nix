@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   user,
@@ -36,7 +37,129 @@
     programs.aerc = {
       enable = true;
 
-      extraBinds = { };
+      extraBinds = {
+        # NOTE: https://man.archlinux.org/man/aerc.1.en
+        global = {
+          "<C-p>" = ":prev-tab<Enter>";
+          "<C-n>" = ":next-tab<Enter>";
+          "<C-t>" = ":term<Enter>";
+          "?" = ":help keys<Enter>";
+        };
+        messages = {
+          "q" = ":prompt 'Quit?' quit<Enter>";
+
+          "j" = ":next<Enter>";
+          "k" = ":prev<Enter>";
+          "<C-d>" = ":next 50%<Enter>";
+          "<C-u>" = ":prev 50%<Enter>";
+          "<C-f>" = ":next 100%<Enter>";
+          "<C-b>" = ":prev 100%<Enter>";
+          "g" = ":select 0<Enter>";
+          "G" = ":select -1<Enter>";
+          "zz" = ":align center<Enter>";
+          "zt" = ":align top<Enter>";
+          "zb" = ":align bottom<Enter>";
+
+          "J" = ":next-folder<Enter>";
+          "K" = ":prev-folder<Enter>";
+          "H" = ":collapse-folder<Enter>";
+          "L" = ":expand-folder<Enter>";
+
+          "<Space>" = ":mark -t<Enter>:next<Enter>";
+          "v" = ":mark -t<Enter>";
+          "V" = ":mark -v<Enter>";
+          "gv" = "remark<Enter>";
+
+          "<Esc>" = ":clear<Enter>:unmark -a<Enter>";
+
+          "/" = ":search<space>";
+          "\\" = ":filter<space>";
+          "n" = ":next-result<Enter>";
+          "N" = ":prev-result<Enter>";
+
+          "T" = ":toggle-threads<Enter>";
+          "<tab>" = ":fold -t<Enter>";
+          "a" = ":archive flat<Enter>";
+          "A" = ":unmark -a<Enter>:mark -T<Enter>:archive flat<Enter>"; # archive thread
+          "s" = ":split<Enter>";
+          "S" = ":vsplit<Enter>";
+
+          "d" = ":choose -o y 'Really delete this message' delete-message<Enter>";
+          "D" = ":delete<Enter>";
+          "<Enter>" = ":view<Enter>";
+          "i" = ":compose<Enter>";
+          "rr" = ":reply<Enter>";
+          "rq" = ":reply -q<Enter>";
+          "Rr" = ":reply -a<Enter>";
+          "Rq" = ":reply -aq<Enter>";
+        };
+        "messages:folder=Drafts" = {
+          "<Enter>" = ":recall<Enter>";
+        };
+        "view" = {
+          "<C-k>" = ":prev-part<Enter>";
+          "<C-j>" = ":next-part<Enter>";
+          "J" = ":next<Enter>";
+          "K" = ":prev<Enter>";
+
+          "q" = ":close<Enter>";
+          "o" = ":open -d<Enter>";
+          "S" = ":save<space>";
+          "|" = ":pipe<space>";
+          "D" = ":delete<Enter>";
+          "A" = ":archive flat<Enter>";
+
+          "<C-y>" = ":copy-link <space>";
+          "<C-l>" = ":open-link <space>";
+
+          "f" = ":forward<Enter>";
+          "rr" = ":reply<Enter>";
+          "rq" = ":reply -q<Enter>";
+          "Rr" = ":reply -a<Enter>";
+          "Rq" = ":reply -aq<Enter>";
+
+          "H" = ":toggle-headers<Enter>";
+        };
+        "compose" = {
+          # Keybindings used when the embedded terminal is not selected in the compose view
+          "$noinherit" = "true";
+          "$ex" = "<C-x>";
+          "$complete" = "<C-o>";
+          "<C-k>" = ":prev-field<Enter>";
+          "<C-j>" = ":next-field<Enter>";
+          "<A-p>" = ":switch-account -p<Enter>";
+          "<A-n>" = ":switch-account -n<Enter>";
+          "<C-p>" = ":prev-tab<Enter>";
+          "<C-n>" = ":next-tab<Enter>";
+        };
+        "compose::editor" = {
+          # Keybindings used when the embedded terminal is selected in the compose view
+          "$noinherit" = "true";
+          "$ex" = "<C-x>";
+          "<C-k>" = ":prev-field<Enter>";
+          "<C-j>" = ":next-field<Enter>";
+          "<C-p>" = ":prev-tab<Enter>";
+          "<C-n>" = ":next-tab<Enter>";
+        };
+        "compose::review" = {
+          "y" = ":send<Enter> # Send";
+          "n" = ":abort<Enter> # Abort (discard message, no confirmation)";
+          "s" = ":sign<Enter> # Toggle signing";
+          "x" = ":encrypt<Enter> # Toggle encryption to all recipients";
+          "v" = ":preview<Enter> # Preview message";
+          "p" = ":postpone<Enter> # Postpone";
+          "q" = ":choose -o d discard abort -o p postpone postpone<Enter> # Abort or postpone";
+          "e" = ":edit<Enter> # Edit (body and headers)";
+          "a" = ":attach<space> # Add attachment";
+          "d" = ":detach<space> # Remove attachment";
+        };
+        "terminal" = {
+          "$noinherit" = "true";
+          "$ex" = "<C-x>";
+          "<C-p>" = ":prev-tab<Enter>";
+          "<C-n>" = ":next-tab<Enter>";
+        };
+      };
       extraConfig = {
         ui = {
           reverse-thread-order = false;
@@ -49,9 +172,12 @@
           "message/rfc822" = "colorize";
           "text/html" = "! html";
           ".headers" = "colorize";
+          "image/*" = "chafa -f symbols -s $(tput cols)x$(tput lines) -";
         };
       };
     };
+
+    home.packages = with pkgs; [ chafa ];
 
     sops =
       let
@@ -104,6 +230,7 @@
           from          = ${user} <${placeholder."mails/vfemail_${nb}/mail"}>
           default       = INBOX
           cache-headers = true
+          postpone      = Drafts
         '';
 
         all_secrets = lib.mergeAttrsList (
