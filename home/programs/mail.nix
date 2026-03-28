@@ -34,6 +34,10 @@
       total_vfemails = 1;
     };
 
+    home.packages = with pkgs; [
+      chafa # images in the terminal
+    ];
+
     programs.aerc = {
       enable = true;
 
@@ -176,8 +180,6 @@
         };
       };
     };
-
-    home.packages = with pkgs; [ chafa ];
 
     sops =
       let
