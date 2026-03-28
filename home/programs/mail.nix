@@ -7,21 +7,35 @@
 }:
 {
   options = {
-    my.aerc.accounts = {
-      total_gmails = lib.mkOption {
-        description = "Indicate the number of gmails accounts you have in your sops secrets";
-        type = lib.types.int;
-        default = 0;
+    my.aerc = {
+      accounts = {
+        total_gmails = lib.mkOption {
+          description = "Indicate the number of gmails accounts you have in your sops secrets";
+          type = lib.types.int;
+          default = 0;
+        };
+        total_vfemails = lib.mkOption {
+          description = "Indicate the number of vfemails accounts you have in your sops secrets";
+          type = lib.types.int;
+          default = 0;
+        };
+        path = lib.mkOption {
+          description = "path of accounts.conf";
+          type = lib.types.str;
+          default = "${config.xdg.configHome}/aerc/accounts.conf";
+        };
       };
-      total_vfemails = lib.mkOption {
-        description = "Indicate the number of vfemails accounts you have in your sops secrets";
-        type = lib.types.int;
-        default = 0;
-      };
-      path = lib.mkOption {
-        description = "path of accounts.conf";
-        type = lib.types.str;
-        default = "${config.xdg.configHome}/aerc/accounts.conf";
+      isync = {
+        home.path = lib.mkOption {
+          description = "isync home folder";
+          type = lib.types.str;
+          default = "${config.xdg.configHome}/isync/";
+        };
+        maildir.path = lib.mkOption {
+          description = "path of maildir WITH NO / AT THE END";
+          type = lib.types.str;
+          default = "${config.home.homeDirectory}/mail";
+        };
       };
     };
   };
@@ -36,6 +50,7 @@
 
     home.packages = with pkgs; [
       chafa # images in the terminal
+      isync
     ];
 
     programs.aerc = {
@@ -88,6 +103,7 @@
           "s" = ":split<Enter>";
           "S" = ":vsplit<Enter>";
 
+          "<C-r>" = ":check-mail<Enter>";
           "d" = ":choose -o y 'Really delete this message' delete-message<Enter>";
           "D" = ":delete<Enter>";
           "<Enter>" = ":view<Enter>";
@@ -202,7 +218,7 @@
           "mails/vfemail_${nb}/password" = { };
         };
 
-        concat_mails = one_m: all_m_nb: lib.strings.concatStringsSep "\n" (map one_m all_m_nb);
+        map_concat = one_m: all_m_nb: lib.strings.concatStringsSep "\n" (map one_m all_m_nb);
         one_gmail = nb: ''
           [${placeholder."mails/gmail_${nb}/mail"}]
           source   = imaps+oauthbearer://${placeholder."mails/gmail_${nb}/mailUrlEncoded"}:${
@@ -223,32 +239,95 @@
         '';
         one_vfemail = nb: ''
           [${placeholder."mails/vfemail_${nb}/mail"}]
-          source        = imaps://${placeholder."mails/vfemail_${nb}/mailUrlEncoded"}:${
-            placeholder."mails/vfemail_${nb}/password"
-          }@imap.vfemail.net:993
+          source        = maildir://${config.my.aerc.isync.maildir.path}/${
+            placeholder."mails/vfemail_${nb}/mail"
+          }
           outgoing      = smtps://${placeholder."mails/vfemail_${nb}/mailUrlEncoded"}:${
             placeholder."mails/vfemail_${nb}/password"
           }@smtp.vfemail.net:465
           from          = ${user} <${placeholder."mails/vfemail_${nb}/mail"}>
-          default       = INBOX
-          cache-headers = true
-          postpone      = Drafts
+          check-mail-cmd = ${config.my.aerc.isync.home.path}mbsyncscript ${
+            placeholder."mails/vfemail_${nb}/mail"
+          }
+          check-mail-timeout = 30s
+          check-mail         = 30s
+          default            = INBOX
+          folders-sort       = INBOX
+          postpone           = Drafts
+          copy-to            = Sent
+        '';
+        # TODO: exec with : mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc ${account-name}
+
+        one_mbsync = nb: ''
+          IMAPAccount ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
+          Host imap.vfemail.net
+          Port 993
+          User ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
+          Pass ${config.sops.placeholder."mails/vfemail_${nb}/password"}
+          TLSType IMAPS
+
+          IMAPStore ${config.sops.placeholder."mails/vfemail_${nb}/mail"}-remote
+          Account ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
+
+          MaildirStore ${config.sops.placeholder."mails/vfemail_${nb}/mail"}-local
+          Path ${config.my.aerc.isync.maildir.path}/${config.sops.placeholder."mails/vfemail_${nb}/mail"}/
+          INBOX ${config.my.aerc.isync.maildir.path}/${
+            config.sops.placeholder."mails/vfemail_${nb}/mail"
+          }/INBOX
+          SubFolders Verbatim
+
+          Channel ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
+          Far :${config.sops.placeholder."mails/vfemail_${nb}/mail"}-remote:
+          Near :${config.sops.placeholder."mails/vfemail_${nb}/mail"}-local:
+          Patterns *
+          Create Both
+          Remove Both
+          SyncState *
+        '';
+        one_script = nb: ''
+          mkdir -p ${config.my.aerc.isync.maildir.path}/${config.sops.placeholder."mails/vfemail_${nb}/mail"}
+          mbsync -c ${config.my.aerc.isync.home.path}/mbsyncrc ${
+            config.sops.placeholder."mails/vfemail_${nb}/mail"
+          }
         '';
 
         all_secrets = lib.mergeAttrsList (
           (map one_gmail_secret all_gmail_nb) ++ (map one_vfemail_secret all_vfemail_nb)
         );
         all_content = lib.concatStringsSep "\n" [
-          (concat_mails one_gmail all_gmail_nb)
-          (concat_mails one_vfemail all_vfemail_nb)
+          (map_concat one_gmail all_gmail_nb)
+          (map_concat one_vfemail all_vfemail_nb)
         ];
+        all_mbsync = lib.concatStringsSep "\n" [
+          (map_concat one_mbsync all_vfemail_nb)
+        ];
+        all_script = lib.concatStringsSep "\n" [
+          (map_concat one_script all_vfemail_nb)
+        ];
+
       in
       {
         secrets = all_secrets;
-        templates."accounts.conf" = {
-          content = all_content;
-          path = config.my.aerc.accounts.path;
-          mode = "400";
+        templates = {
+          "accounts.conf" = {
+            content = all_content;
+            path = config.my.aerc.accounts.path;
+            mode = "400";
+          };
+          "mbsyncrc" = {
+            content = all_mbsync;
+            path = config.my.aerc.isync.home.path + "/mbsyncrc";
+            mode = "400";
+          };
+          "mbsyncscript" = {
+            content = ''
+              #!/usr/bin/env bash
+
+            ''
+            + all_script;
+            path = config.my.aerc.isync.home.path + "mbsyncscript";
+            mode = "500";
+          };
         };
       };
   };
