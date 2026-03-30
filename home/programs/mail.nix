@@ -106,7 +106,6 @@
 
           "<C-r>" = ":check-mail<Enter>";
           "d" = ":choose -o y 'Really delete this message' delete-message<Enter>";
-          "D" = ":delete<Enter>";
           "<Enter>" = ":view<Enter>";
           "i" = ":compose<Enter>";
           "rr" = ":reply<Enter>";
@@ -190,12 +189,12 @@
         general = {
           "unsafe-accounts-conf" = false;
         };
-        compose = {
-          "address-book-cmd" = "${config.sops.templates."emailbook".path} \"%s\"";
-        };
         ui = {
           reverse-thread-order = false;
           threading-enabled = true;
+        };
+        compose = {
+          "address-book-cmd" = "${config.sops.templates."emailbook".path} \"%s\"";
         };
         filters = {
           "text/plain" = "colorize";
@@ -316,9 +315,9 @@
           ++ (map one_gmail_secret all_gmail_nb)
           ++ (map one_vfemail_secret all_vfemail_nb)
         );
-        all_content = lib.concatStringsSep "\n" [
-          (map_concat one_gmail all_gmail_nb)
+        all_emails = lib.concatStringsSep "\n" [
           (map_concat one_vfemail all_vfemail_nb)
+          (map_concat one_gmail all_gmail_nb)
         ];
         all_mbsync = lib.concatStringsSep "\n" [
           (map_concat one_mbsync all_vfemail_nb)
@@ -332,7 +331,7 @@
         secrets = all_secrets;
         templates = {
           "accounts.conf" = {
-            content = all_content;
+            content = all_emails;
             path = config.my.aerc.accounts.path;
             mode = "400";
           };
