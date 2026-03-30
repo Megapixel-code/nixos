@@ -50,7 +50,8 @@
 
     home.packages = with pkgs; [
       chafa # images in the terminal
-      isync
+      isync # sync mails
+      w3m # html to text
     ];
 
     programs.aerc = {
@@ -190,10 +191,25 @@
           "unsafe-accounts-conf" = false;
         };
         ui = {
-          reverse-thread-order = false;
-          threading-enabled = true;
+          "reverse-thread-order" = "false";
+          "threading-enabled" = "true";
+          "fuzzy-complete" = "true";
+          "icon-attachment" = "󰁦";
+          "icon-new" = "";
+          "icon-old" = "󱍢";
+          "icon-replied" = "";
+          "icon-forwarded" = "";
+          "icon-flagged" = "󰈻";
+          "icon-marked" = "󰄲";
+          "icon-deleted" = "";
+        };
+        viewer = {
+          "header-layout" = "From,To,Cc,Bcc,Date,Subject";
+          "alternatives" = "text/html,text/plain";
         };
         compose = {
+          "header-layout" = "From,To,Cc,Subject";
+          "empty-subject-warning" = "true";
           "address-book-cmd" = "${config.sops.templates."emailbook".path} \"%s\"";
         };
         filters = {
@@ -201,7 +217,7 @@
           "text/calendar" = "calendar";
           "message/delivery-status" = "colorize";
           "message/rfc822" = "colorize";
-          "text/html" = "! html";
+          "text/html" = "w3m -T text/html -dump -o display_link_number=1 | colorize";
           ".headers" = "colorize";
           "image/*" = "chafa -f symbols -s $(tput cols)x$(tput lines) -";
         };
