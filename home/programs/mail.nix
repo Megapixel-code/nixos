@@ -91,13 +91,14 @@
 
           "<Esc>" = ":clear<Enter>:unmark -a<Enter>";
 
-          "?" = ":search<space>-a<space>";
-          "/" = ":filter<space>-a<space>";
+          "?" = ":search<Space>-a<Space>";
+          "/" = ":filter<Space>-a<Space>";
           "n" = ":next-result<Enter>";
           "N" = ":prev-result<Enter>";
 
           "T" = ":toggle-threads<Enter>";
           "<tab>" = ":fold -t<Enter>";
+          "m" = "move<Space>";
           "a" = ":archive flat<Enter>";
           "A" = ":unmark -a<Enter>:mark -T<Enter>:archive flat<Enter>"; # archive thread
           "s" = ":split<Enter>";
@@ -124,13 +125,13 @@
 
           "q" = ":close<Enter>";
           "o" = ":open -d<Enter>";
-          "S" = ":save<space>";
-          "|" = ":pipe<space>";
+          "S" = ":save<Space>";
+          "|" = ":pipe<Space>";
           "D" = ":delete<Enter>";
           "A" = ":archive flat<Enter>";
 
-          "<C-y>" = ":copy-link <space>";
-          "<C-l>" = ":open-link <space>";
+          "<C-y>" = ":copy-link <Space>";
+          "<C-l>" = ":open-link <Space>";
 
           "f" = ":forward<Enter>";
           "rr" = ":reply<Enter>";
@@ -170,8 +171,8 @@
           "p" = ":postpone<Enter> # Postpone";
           "q" = ":choose -o d discard abort -o p postpone postpone<Enter> # Abort or postpone";
           "e" = ":edit<Enter> # Edit (body and headers)";
-          "a" = ":attach<space> # Add attachment";
-          "d" = ":detach<space> # Remove attachment";
+          "a" = ":attach<Space> # Add attachment";
+          "d" = ":detach<Space> # Remove attachment";
         };
         "terminal" = {
           "$noinherit" = "true";
