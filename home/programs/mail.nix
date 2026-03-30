@@ -91,8 +91,8 @@
 
           "<Esc>" = ":clear<Enter>:unmark -a<Enter>";
 
-          "/" = ":search<space>";
-          "\\" = ":filter<space>";
+          "?" = ":search<space>-a<space>";
+          "/" = ":filter<space>-a<space>";
           "n" = ":next-result<Enter>";
           "N" = ":prev-result<Enter>";
 
@@ -181,6 +181,9 @@
         };
       };
       extraConfig = {
+        compose = {
+          "address-book-cmd" = "${config.sops.templates."emailbook".path} \"%s\"";
+        };
         ui = {
           reverse-thread-order = false;
           threading-enabled = true;
@@ -246,7 +249,7 @@
             placeholder."mails/vfemail_${nb}/password"
           }@smtp.vfemail.net:465
           from          = ${user} <${placeholder."mails/vfemail_${nb}/mail"}>
-          check-mail-cmd = ${config.my.aerc.isync.home.path}mbsyncscript ${
+          check-mail-cmd = ${config.sops.templates."mbsyncscript".path} ${
             placeholder."mails/vfemail_${nb}/mail"
           }
           check-mail-timeout = 30s
@@ -256,7 +259,6 @@
           postpone           = Drafts
           copy-to            = Sent
         '';
-        # TODO: exec with : mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc ${account-name}
 
         one_mbsync = nb: ''
           IMAPAccount ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
@@ -274,6 +276,9 @@
           INBOX ${config.my.aerc.isync.maildir.path}/${
             config.sops.placeholder."mails/vfemail_${nb}/mail"
           }/INBOX
+          Trash ${config.my.aerc.isync.maildir.path}/${
+            config.sops.placeholder."mails/vfemail_${nb}/mail"
+          }/Trash
           SubFolders Verbatim
 
           Channel ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
@@ -284,7 +289,7 @@
           Remove Both
           SyncState *
         '';
-        one_script = nb: ''
+        one_mbsync_script = nb: ''
           mkdir -p ${config.my.aerc.isync.maildir.path}/${config.sops.placeholder."mails/vfemail_${nb}/mail"}
           mbsync -c ${config.my.aerc.isync.home.path}/mbsyncrc ${
             config.sops.placeholder."mails/vfemail_${nb}/mail"
@@ -292,7 +297,13 @@
         '';
 
         all_secrets = lib.mergeAttrsList (
-          (map one_gmail_secret all_gmail_nb) ++ (map one_vfemail_secret all_vfemail_nb)
+          [
+            {
+              "mails/emailbook" = { };
+            }
+          ]
+          ++ (map one_gmail_secret all_gmail_nb)
+          ++ (map one_vfemail_secret all_vfemail_nb)
         );
         all_content = lib.concatStringsSep "\n" [
           (map_concat one_gmail all_gmail_nb)
@@ -301,8 +312,8 @@
         all_mbsync = lib.concatStringsSep "\n" [
           (map_concat one_mbsync all_vfemail_nb)
         ];
-        all_script = lib.concatStringsSep "\n" [
-          (map_concat one_script all_vfemail_nb)
+        all_mbsync_script = lib.concatStringsSep "\n" [
+          (map_concat one_mbsync_script all_vfemail_nb)
         ];
 
       in
@@ -324,8 +335,31 @@
               #!/usr/bin/env bash
 
             ''
-            + all_script;
-            path = config.my.aerc.isync.home.path + "mbsyncscript";
+            + all_mbsync_script;
+            mode = "500";
+          };
+          "emailbook" = {
+            content = ''
+              #!/usr/bin/env sh
+              # NOTE: using > https://git.sr.ht/~maxgyver83/emailbook/tree/main/item/emailbook
+
+              searchall() {
+                 # show entries with matching alias first
+                 searchbyalias "$*"
+                 searchbyvalueonly "$*"
+              }
+              searchbyalias() {
+                 grep -i -E "$* :" "$filename" | sed -E 's/^[^:]+:\s*//'
+              }
+              searchbyvalueonly() {
+                 # exclude matches found by searchbyalias
+                 grep -i -E -v "$* :" "$filename" | sed -E 's/^[^:]+:\s*//' | grep -i -E "$*"
+              }
+
+              filename=${config.sops.secrets."mails/emailbook".path}
+
+              searchall "$*"
+            '';
             mode = "500";
           };
         };
