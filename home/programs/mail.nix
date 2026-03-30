@@ -98,7 +98,7 @@
 
           "T" = ":toggle-threads<Enter>";
           "<tab>" = ":fold -t<Enter>";
-          "m" = "move<Space>";
+          "m" = ":menu -dc \"fzf\" -t \"Move to :\" :move<Enter>";
           "a" = ":archive flat<Enter>";
           "A" = ":unmark -a<Enter>:mark -T<Enter>:archive flat<Enter>"; # archive thread
           "s" = ":split<Enter>";
@@ -130,8 +130,8 @@
           "D" = ":delete<Enter>";
           "A" = ":archive flat<Enter>";
 
-          "<C-y>" = ":copy-link <Space>";
-          "<C-l>" = ":open-link <Space>";
+          "<C-y>" = ":copy-link<Space>";
+          "<C-l>" = ":open-link<Space>";
 
           "f" = ":forward<Enter>";
           "rr" = ":reply<Enter>";
@@ -140,6 +140,11 @@
           "Rq" = ":reply -aq<Enter>";
 
           "H" = ":toggle-headers<Enter>";
+        };
+        "view::passthrough" = {
+          "$noinherit" = "true";
+          "$ex" = "<C-x>";
+          "<Esc>" = ":toggle-key-passthrough<Enter>";
         };
         "compose" = {
           # Keybindings used when the embedded terminal is not selected in the compose view
@@ -171,7 +176,7 @@
           "p" = ":postpone<Enter> # Postpone";
           "q" = ":choose -o d discard abort -o p postpone postpone<Enter> # Abort or postpone";
           "e" = ":edit<Enter> # Edit (body and headers)";
-          "a" = ":attach<Space> # Add attachment";
+          "a" = ":menu -c \"yazi --chooser-file=%f\" -t \"Add Attachment\" :attach<Enter> # Add attachment";
           "d" = ":detach<Space> # Remove attachment";
         };
         "terminal" = {
@@ -182,6 +187,9 @@
         };
       };
       extraConfig = {
+        general = {
+          "unsafe-accounts-conf" = false;
+        };
         compose = {
           "address-book-cmd" = "${config.sops.templates."emailbook".path} \"%s\"";
         };
@@ -291,7 +299,9 @@
           SyncState *
         '';
         one_mbsync_script = nb: ''
-          mkdir -p ${config.my.aerc.isync.maildir.path}/${config.sops.placeholder."mails/vfemail_${nb}/mail"}
+          mkdir -m 700 -p ${config.my.aerc.isync.maildir.path}/${
+            config.sops.placeholder."mails/vfemail_${nb}/mail"
+          }
           mbsync -c ${config.my.aerc.isync.home.path}/mbsyncrc ${
             config.sops.placeholder."mails/vfemail_${nb}/mail"
           }
