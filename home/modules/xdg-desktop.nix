@@ -111,7 +111,8 @@
       enable = true;
       # in xdg_config_home/mimeapps.list
       # how to get MIME type : https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types.html
-      # list of desktop apps : /nix/var/nix/profiles/system/sw/share/applications/
+      # list of desktop apps :
+      # ll /etc/profiles/per-user/ivan/share/applications /run/current-system/sw/share/applications
       defaultApplications = {
         # applications that should be the default choice when opening that MIME type
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [

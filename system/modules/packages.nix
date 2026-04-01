@@ -35,7 +35,7 @@ let
       imagemagick # image manipulation tool (used for color picker)
       pscircle # proccess viewer image generator
       swww # bg daemon: TODO: change later to awww when pkg will be available
-      rofi # app launcher
+      wofi # app launcher
       swaynotificationcenter # notification deamon
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.networking.personal.enable [
