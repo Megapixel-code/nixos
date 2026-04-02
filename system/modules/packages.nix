@@ -57,6 +57,11 @@ let
       davinci-resolve
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.games.enable [
+      (writers.writeBashBin "steam" ''
+        HOME=$XDG_DATA_HOME/Valve/Steam
+        mkdir -p $HOME
+        exec ${pkgs.steam}/bin/steam "$@"
+      '') # forces steam (and dev apps) to follow xdg specification
       prismlauncher # minecraft
       # factorio TODO:
     ])

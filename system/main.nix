@@ -120,7 +120,10 @@
       };
 
       # hardware accelerated graphics drivers. (hardware rendering, video encode/decode acceleration, etc)
-      hardware.graphics.enable = true;
+      hardware.graphics = {
+        enable = true;
+        enable32Bit = true; # needed for steam
+      };
 
       users.users.${user} = {
         isNormalUser = true;
