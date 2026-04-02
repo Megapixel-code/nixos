@@ -77,9 +77,7 @@ let
       ntfs3g # read/fix ntfs file systems
 
       fzf
-      ripgrep
       pdfgrep
-      fd # find rewrite, directory searching # TODO: remove this shit
 
       wl-clipboard
       inotify-tools
