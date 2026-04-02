@@ -34,7 +34,7 @@
         maildir.path = lib.mkOption {
           description = "path of maildir WITH NO / AT THE END";
           type = lib.types.str;
-          default = "${config.home.homeDirectory}/mail";
+          default = "${config.home.homeDirectory}/.mail";
         };
       };
     };
