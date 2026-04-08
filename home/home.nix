@@ -47,13 +47,14 @@
         )
 
         for e in "''${configfiles[@]}"; do
-        	ln -sf "$e" "$configfiles_dir"
+        	ln -sfn "$e" "$configfiles_dir"
         done
         for e in "''${fonts_files[@]}"; do
-        	ln -sf "$dotfiles_dir$e" "$font_dir"
+        	echo "test"
+        	# ln -sfn "$dotfiles_dir$e" "$font_dir"
         done
         for e in "''${formaters_files[@]}"; do
-        	ln -sf "$dotfiles_dir$e" "$formaters_dir"
+        	ln -sfn "$dotfiles_dir$e" "$formaters_dir"
         done
       '';
     };

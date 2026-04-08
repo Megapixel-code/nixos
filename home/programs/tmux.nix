@@ -89,10 +89,10 @@
 
       bind y run "tmux neww -c '#{pane_current_path}' yazi"
       bind E show-environment -g # show environment vars
-      bind f run "tmux neww ~/.config/scripts/tmux-session-dispensary.sh"
-      bind H run "~/.config/scripts/tmux-session-dispensary.sh $HOME"
-      bind D run "~/.config/scripts/tmux-session-dispensary.sh $HOME/dotfiles_stow/"
-      bind N run "~/.config/scripts/tmux-session-dispensary.sh /etc/nixos/"
+      bind f run "tmux neww ~/.config/scripts/tmux-session-dispensary"
+      bind H run "~/.config/scripts/tmux-session-dispensary $HOME"
+      bind D run "~/.config/scripts/tmux-session-dispensary /etc/nixos/dotfiles/"
+      bind N run "~/.config/scripts/tmux-session-dispensary /etc/nixos/"
     '';
   };
 }
