@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# cmd > /dev/null 2>&1 : used to discard output of cmd
+
+# obs
+# FIXME: remove line after https://github.com/mangowm/mango/releases/tag/0.12.4 ?
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots > /dev/null 2>&1
+
+# notify
+swaync > /dev/null 2>&1 &
+
+# bar
+~/dotfiles_stow/mangowc/.config/waybar/scripts/toggle_waybar > /dev/null 2>&1 &
+
+# blue light filter
+sunsetr > /dev/null 2>&1 &
+
+# deezer
+# deezer-enhanced > /dev/null 2>&1 &
+
+# wallpaper
+"$XDG_CONFIG_HOME/mango/scripts/pscircle_bg.sh" > /dev/null 2>&1 &
+
+# start tmux
+"$XDG_CONFIG_HOME"/scripts/tmux-session-dispensary.sh "$HOME" > /dev/null 2>&1 &
+
+# remove trash files older than 100 days
+find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {} \; > /dev/null 2>&1 &

@@ -1,0 +1,15 @@
+drun-terminal_fix=true # TODO: will be there on next update probably
+show=drun
+prompt=[...]
+term=kitty
+insensitive=true
+lines=14
+hide_scroll=true
+
+key_up=Ctrl-p
+key_down=Ctrl-n
+key_expand=Ctrl-y
+
+dynamic_lines=false
+use_search_box=false # remove the search icon
+close_on_focus_loss=true

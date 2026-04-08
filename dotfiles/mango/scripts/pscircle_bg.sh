@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# start daemon :
+swww-daemon > /dev/null 2>&1 &
+
+cmd_output=$(mmsg -O | grep "eDP-1")
+
+if [[ $cmd_output == "" ]]; then
+	# "main computer"
+	output="DP-1"
+else
+	# "school computer"
+	output="eDP-1"
+fi
+
+#000000
+#C0C0C0
+#F9F9FA
+#008080
+
+color_background="008080" #008080
+color_text="000000" #000000
+color_dots="00000066" #00000066
+color_links="00000066" #00000066
+
+# https://gitlab.com/mildlyparallel/pscircle
+pscircle \
+	--background-color="$color_background" \
+	--link-color-min="$color_links" \
+	--link-color-max="$color_links" \
+	--dot-color-min="$color_dots" \
+	--dot-color-max="$color_dots" \
+	--dot-border-color-min="$color_dots" \
+	--dot-border-color-max="$color_dots" \
+	--tree-font-color="$color_text" \
+	\
+	--tree-font-size=12 \
+	--tree-font-face="BlexMono Nerd Font Mono" \
+	--tree-radius-increment=145 \
+	--link-convexity=0.6 \
+	--link-width=1.5 \
+	--dot-radius=3 \
+	--dot-border-width=2 \
+	\
+	--daemonize=1 \
+	--loop-delay=10 \
+	--output="$XDG_CONFIG_HOME/mango/backgrounds/pscircle_out.png" \
+	--output-width=3200 \
+	--output-height=1800 \
+	\
+	--show-root=1 \
+	--collapse-threads=1 \
+	--cpulist-show=0 \
+	--memlist-show=0
+
+swww img -o "HDMI-A-1" "$XDG_CONFIG_HOME/mango/backgrounds/nix_horizontal.svg"
+
+while inotifywait -e close_write "$XDG_CONFIG_HOME/mango/backgrounds/pscircle_out.png"; do
+	swww img -o "$output" "$XDG_CONFIG_HOME/mango/backgrounds/pscircle_out.png" --transition-type "grow" --transition-pos "center"
+done

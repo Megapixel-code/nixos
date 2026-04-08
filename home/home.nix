@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   user,
   import-tree,
   ...
@@ -10,8 +11,10 @@
     ./options.nix
     ./secrets.nix
 
-    (import-tree ./modules)
-    (import-tree ./programs)
+    (import-tree [
+      ./modules
+      ./programs
+    ])
   ];
 
   home = {
@@ -22,9 +25,37 @@
       create-screenshoot-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         mkdir -p $GRIM_DEFAULT_DIR
       ''; # $HOME/pictures/screenshoots/
+
       create-documents-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        mkdir -p $HOME/documents/projects/
+        mkdir -p ${config.home.homeDirectory}/documents/projects/
       ''; # $HOME/documents/projects/
+
+      symlink-dotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        dotfiles_dir="/etc/nixos/dotfiles/"
+
+        configfiles_dir="${config.xdg.configHome}"
+        font_dir="${config.xdg.dataHome}/fonts/"
+        formaters_dir="${config.home.homeDirectory}"
+
+        readarray -t configfiles <<< "$(ls -d "$dotfiles_dir"*/)"
+        fonts_files=(
+        	W95FA.otf
+        )
+        formaters_files=(
+        	.clang-format
+        	.prettierrc.json
+        )
+
+        for e in "''${configfiles[@]}"; do
+        	ln -sf "$e" "$configfiles_dir"
+        done
+        for e in "''${fonts_files[@]}"; do
+        	ln -sf "$dotfiles_dir$e" "$font_dir"
+        done
+        for e in "''${formaters_files[@]}"; do
+        	ln -sf "$dotfiles_dir$e" "$formaters_dir"
+        done
+      '';
     };
   };
 
