@@ -46,12 +46,15 @@
         	.prettierrc.json
         )
 
+        mkdir -p "$configfiles_dir"
+        mkdir -p "$font_dir"
+        mkdir -p "$formaters_dir"
+
         for e in "''${configfiles[@]}"; do
         	ln -sfn "$e" "$configfiles_dir"
         done
         for e in "''${fonts_files[@]}"; do
-        	echo "test"
-        	# ln -sfn "$dotfiles_dir$e" "$font_dir"
+        	ln -sfn "$dotfiles_dir$e" "$font_dir"
         done
         for e in "''${formaters_files[@]}"; do
         	ln -sfn "$dotfiles_dir$e" "$formaters_dir"
