@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-file="$HOME/dotfiles_stow/mangowc/.config/waybar/scripts/toggle.pid"
+file="$XDG_CONFIG_HOME/waybar/scripts/toggle.pid"
 
 if ps -p "$(cat "$file")"; then
 	kill "$(cat "$file")"
