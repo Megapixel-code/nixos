@@ -22,20 +22,19 @@
     homeDirectory = "/home/${user}";
 
     activation = {
-      create-screenshoot-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      create-folders = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        # $HOME/pictures/screenshoots/
         mkdir -p $GRIM_DEFAULT_DIR
-      ''; # $HOME/pictures/screenshoots/
-
-      create-documents-folder = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        # $HOME/documents/projects/
         mkdir -p ${config.home.homeDirectory}/documents/projects/
-      ''; # $HOME/documents/projects/
+      '';
 
       symlink-dotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         dotfiles_dir="/etc/nixos/dotfiles/"
 
-        configfiles_dir="${config.xdg.configHome}"
+        configfiles_dir="${config.xdg.configHome}/"
         font_dir="${config.xdg.dataHome}/fonts/"
-        formaters_dir="${config.home.homeDirectory}"
+        formaters_dir="${config.home.homeDirectory}/"
 
         readarray -t configfiles <<< "$(ls -d "$dotfiles_dir"*/)"
         fonts_files=(
