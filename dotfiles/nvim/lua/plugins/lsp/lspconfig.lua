@@ -9,8 +9,6 @@ return {
       },
 
       config = function()
-         assert( os.getenv( "NIXOS_NVIM" ) == "1", "Seems like you are not using nixos, bad person!" )
-
          local capabilities = require( "cmp_nvim_lsp" ).default_capabilities()
          M = {
             { -- Lua lsp
