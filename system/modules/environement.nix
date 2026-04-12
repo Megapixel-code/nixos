@@ -34,7 +34,6 @@
         MAIL = "$XDG_DATA_HOME/mail";
         MAILDIR = "$XDG_DATA_HOME/mail";
         HISTFILE = "$XDG_STATE_HOME/bash/history";
-        NIXOS_NVIM = "1"; # environement variable to tell nvim we are on nixos
 
         # partialy suported
         ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
