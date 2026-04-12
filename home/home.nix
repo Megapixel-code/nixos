@@ -29,6 +29,18 @@
         mkdir -p ${config.home.homeDirectory}/documents/projects/
       '';
 
+      symlink-desktop-files = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        desktop_dir="$XDG_DATA_HOME/applications"
+
+        mkdir -p "$desktop_dir"
+        rm -f "$desktop_dir"/*.desktop
+
+        readarray -t desktopfiles <<< "$(ls "$HOME"/desktop/*.desktop)"
+        for e in "''${desktopfiles[@]}"; do
+        	ln -sfn "$e" "$desktop_dir"
+        done
+      '';
+
       symlink-dotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         dotfiles_dir="/etc/nixos/dotfiles/"
 
