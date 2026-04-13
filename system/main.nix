@@ -44,6 +44,17 @@
       };
     })
 
+    (lib.mkIf config.home-manager.users.${user}.my.module-audio.enable {
+      security.rtkit.enable = true;
+      services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
+      };
+    })
+
     (lib.mkIf config.home-manager.users.${user}.my.module-printing.enable {
       services = {
         printing.enable = true;
@@ -108,16 +119,6 @@
       #   keyMap = "us";
       #   useXkbConfig = true; # use xkb.options in tty.
       # };
-
-      # Enable sound.
-      security.rtkit.enable = true;
-      services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-        jack.enable = true;
-      };
 
       services.upower.enable = true;
 
