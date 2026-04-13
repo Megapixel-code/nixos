@@ -24,7 +24,10 @@
       };
 
       networking = {
-        networkmanager.enable = true;
+        networkmanager = {
+          enable = true;
+          wifi.powersave = true;
+        };
         wireless.iwd.enable = true; # needed for using impala network manager
       };
 
