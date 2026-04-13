@@ -12,7 +12,7 @@
 # color=always = forces color
 # sed -> removes the second argument (number of hard links)
 ll() {
-	LC_COLLATE=C ls -lAhpv --group-directories-first --time-style=iso --color=always $@ | sed -E '2,$s/ +[0-9]+//'
+	LC_COLLATE=C ls -lAhpv --group-directories-first --time-style=iso --color=always $@
 }
 
 y() {
