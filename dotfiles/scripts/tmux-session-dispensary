@@ -20,9 +20,14 @@ bright_cyan=14
 bright_white=15
 
 SK_THEME=(
-	--color=none,fg:"$white",hl:"$red",fg+:"$black",bg+:"$red",hl+:"$bright_white",current_match_bg:"$red",info:"$white",prompt:"$red",cursor:"$black"
-	--margin=25%
+	--color=none,fg:"$white",matched:"$red",current:"$black",current_bg:"$red",current_match:"$bright_white"+bold,current_match_bg:"$red",info:"$white",prompt:"$red",cursor:"$black"
+	--layout="reverse"
+	--margin=1%
+	--border="plain"
+	--tabstop=3
 	--prompt="λ "
+	--preview="LC_COLLATE=C ls -lAhpv --group-directories-first --time-style=iso --color=always $HOME/{}"
+	--preview-window="right:60%"
 )
 
 DIRS=(
