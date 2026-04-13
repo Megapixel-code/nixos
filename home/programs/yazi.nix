@@ -78,10 +78,6 @@
           text = "";
         }
         {
-          name = "dotfiles_stow";
-          text = "";
-        }
-        {
           name = "downloads";
           text = "";
         }
