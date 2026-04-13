@@ -3,8 +3,7 @@
   ...
 }:
 {
-  # FIXME: battery not working
-  home.packages = with pkgs; [ upower ];
+  home.packages = with pkgs; [ ];
 
   programs.tmux = {
     enable = true;
@@ -22,17 +21,8 @@
       {
         plugin = tmuxPlugins.battery;
         extraConfig = ''
-          set -g @batt_icon_charge_tier8 '󰂂'
-          set -g @batt_icon_charge_tier7 '󰂁'
-          set -g @batt_icon_charge_tier6 '󰂀'
-          set -g @batt_icon_charge_tier5 '󰁿'
-          set -g @batt_icon_charge_tier4 '󰁾'
-          set -g @batt_icon_charge_tier3 '󰁽'
-          set -g @batt_icon_charge_tier2 '󰁻'
-          set -g @batt_icon_charge_tier1 '󰁺'
-          set -g @batt_icon_status_charging '󰂄'
           set -g status-right-length 50
-          set -g status-right 'Batt: #{battery_icon} #{battery_percentage} | "#H" %a %d-%h %H:%M '
+          set -g status-right 'bat: #{battery_percentage} | %a %d-%h %H:%M '
         '';
       }
     ];

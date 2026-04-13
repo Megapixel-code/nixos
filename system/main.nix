@@ -119,6 +119,8 @@
         jack.enable = true;
       };
 
+      services.upower.enable = true;
+
       # hardware accelerated graphics drivers. (hardware rendering, video encode/decode acceleration, etc)
       hardware.graphics = {
         enable = true;
