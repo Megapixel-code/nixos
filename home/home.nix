@@ -30,12 +30,15 @@
       '';
 
       symlink-desktop-files = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        desktop_dir="$XDG_DATA_HOME/applications"
+        desktop_dir="${config.xdg.dataHome}/applications"
 
         mkdir -p "$desktop_dir"
-        rm -f "$desktop_dir"/*.desktop
+        find "$desktop_dir" -name "*.desktop" -delete
 
-        readarray -t desktopfiles <<< "$(ls "$HOME"/desktop/*.desktop)"
+        readarray -t desktopfiles <<< "$(find "${config.home.homeDirectory}/desktop" -name "*.desktop")"
+        if [[ ''${desktopfiles[*]} == "" ]]; then
+        	exit
+        fi
         for e in "''${desktopfiles[@]}"; do
         	ln -sfn "$e" "$desktop_dir"
         done
