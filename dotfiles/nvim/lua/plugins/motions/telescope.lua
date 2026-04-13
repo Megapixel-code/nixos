@@ -11,23 +11,24 @@ return {
       telescope.setup( {
          defaults = {
             layout_strategy = "flex",
+            sorting_strategy = "ascending",
             layout_config = {
+               prompt_position = "top",
+               height = 100000,
+               width = 100000,
                vertical = {
-                  prompt_position = "bottom",
                   preview_height = .6,
-                  height = 0.8,
-                  width = 0.7,
+                  mirror = true,
                },
                horizontal = {
-                  prompt_position = "bottom",
                   preview_width = .6,
-                  height = 0.8,
-                  width = 0.8,
                },
             },
             prompt_prefix = "λ ",
             selection_caret = " ",
+            path_display = { "truncate" },
             borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+            preview = { treesitter = true },
 
             file_ignore_patterns = {
                ".git/",
