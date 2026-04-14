@@ -15,7 +15,7 @@
 
       custom-cursor.enable = lib.mkEnableOption "enable custom_cursor";
       module-bluetooth.enable = lib.mkEnableOption "enable bluetooth";
-      my.module-audio.enable = lib.mkEnableOption "enable audio";
+      module-audio.enable = lib.mkEnableOption "enable audio";
       module-printing.enable = lib.mkEnableOption "enable printing";
 
       networking = {

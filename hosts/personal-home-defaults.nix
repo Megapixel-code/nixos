@@ -8,6 +8,7 @@
 
     custom-cursor.enable = lib.mkDefault true;
     module-bluetooth.enable = lib.mkDefault true;
+    module-audio.enable = lib.mkDefault true;
     module-printing.enable = lib.mkDefault true;
 
     networking.personal.enable = lib.mkDefault true;
