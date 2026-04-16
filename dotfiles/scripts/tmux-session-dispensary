@@ -22,7 +22,6 @@ bright_white=15
 SK_THEME=(
 	--color=none,fg:"$white",matched:"$red",current:"$black",current_bg:"$red",current_match:"$bright_white"+bold,current_match_bg:"$red",info:"$white",prompt:"$red",cursor:"$black"
 	--layout="reverse"
-	--margin=1%
 	--border="plain"
 	--tabstop=3
 	--prompt="λ "
