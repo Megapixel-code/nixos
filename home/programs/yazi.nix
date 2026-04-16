@@ -55,53 +55,61 @@
       ];
     };
 
-    theme.icon = {
-      dirs = [
-        {
-          name = ".config";
-          text = "";
-        }
-        {
-          name = ".git";
-          text = "";
-        }
-        {
-          name = ".github";
-          text = "";
-        }
-        {
-          name = "desktop";
-          text = "";
-        }
-        {
-          name = "documents";
-          text = "";
-        }
-        {
-          name = "downloads";
-          text = "";
-        }
-        {
-          name = "music";
-          text = "";
-        }
-        {
-          name = "pictures";
-          text = "";
-        }
-        {
-          name = "public";
-          text = "";
-        }
-        {
-          name = "templates";
-          text = "";
-        }
-        {
-          name = "videos";
-          text = "";
-        }
-      ];
+    theme = {
+      indicator = {
+        padding = {
+          open = "█";
+          close = "█";
+        };
+      };
+      icon = {
+        dirs = [
+          {
+            name = ".config";
+            text = "";
+          }
+          {
+            name = ".git";
+            text = "";
+          }
+          {
+            name = ".github";
+            text = "";
+          }
+          {
+            name = "desktop";
+            text = "";
+          }
+          {
+            name = "documents";
+            text = "";
+          }
+          {
+            name = "downloads";
+            text = "";
+          }
+          {
+            name = "music";
+            text = "";
+          }
+          {
+            name = "pictures";
+            text = "";
+          }
+          {
+            name = "public";
+            text = "";
+          }
+          {
+            name = "templates";
+            text = "";
+          }
+          {
+            name = "videos";
+            text = "";
+          }
+        ];
+      };
     };
 
     keymap = {
@@ -223,7 +231,7 @@
       inherit compress;
       inherit full-border;
       inherit yatline;
-      inherit git; # FIXME: not working
+      inherit git;
       inherit mount; # FIXME: not working
     };
   };
