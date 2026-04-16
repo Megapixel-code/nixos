@@ -7,6 +7,21 @@
   ...
 }:
 let
+  makeWrapper =
+    name: script_content:
+    pkgs.symlinkJoin {
+      name = "${name}";
+      paths = [
+        (pkgs.writers.writeBashBin "${name}" (
+          script_content
+          + ''
+            exec ${pkgs.${name}}/bin/${name} "$@"
+          ''
+        ))
+        pkgs.${name}
+      ];
+    };
+
   stablePackages =
     with pkgs;
     [
@@ -57,11 +72,10 @@ let
       davinci-resolve
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.games.enable [
-      (writers.writeBashBin "steam" ''
-        HOME=$XDG_DATA_HOME/Valve/Steam
+      (makeWrapper "steam" ''
+        HOME=$XDG_DATA_HOME/Steam
         mkdir -p $HOME
-        exec ${pkgs.steam}/bin/steam "$@"
-      '') # forces steam (and dev apps) to follow xdg specification
+      '')
       prismlauncher # minecraft
       # factorio TODO:
     ])

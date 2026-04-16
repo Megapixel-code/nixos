@@ -109,17 +109,6 @@
 
     # NOTE: for categories: https://specifications.freedesktop.org/menu/latest/category-registry.html
     desktopEntries = {
-      steam = {
-        # needed because it is run with a wrapper
-        name = "Steam";
-        genericName = "Game Launcher";
-        exec = "steam";
-        terminal = false;
-        categories = [
-          "Game"
-        ];
-        mimeType = [ ];
-      };
     };
 
     mimeApps = {
