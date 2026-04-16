@@ -10,9 +10,9 @@ let
   makeWrapper =
     name: script_content:
     pkgs.symlinkJoin {
-      name = "${name}";
+      name = name;
       paths = [
-        (pkgs.writers.writeBashBin "${name}" (
+        (pkgs.writers.writeBashBin name (
           script_content
           + ''
             exec ${pkgs.${name}}/bin/${name} "$@"
