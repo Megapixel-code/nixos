@@ -49,7 +49,7 @@ let
       grim # screenshoot tool
       imagemagick # image manipulation tool (used for color picker)
       pscircle # proccess viewer image generator
-      swww # bg daemon: TODO: change later to awww when pkg will be available
+      awww # bg daemon
       wofi # app launcher
       swaynotificationcenter # notification deamon
     ])

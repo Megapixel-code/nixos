@@ -5,6 +5,10 @@
 {
   programs.neovim = {
     enable = true;
+
+    withRuby = false;
+    withPython3 = false;
+
     extraPackages = with pkgs; [
       git
       gnumake
@@ -27,6 +31,7 @@
       pyrefly # python
       clang-tools # c cpp
       bash-language-server # bash
+      # pascal-language-server # pascal TODO:
       metals # scala
       nil # nix
       nixd # nix
@@ -42,7 +47,7 @@
       shfmt # bash
       prettierd # css, and more but just css for now
       typstyle # typst
-      nixfmt-rfc-style # nix
+      nixfmt # nix
       mbake # make
       pasfmt # pascal / delphi
       shellcheck # bash

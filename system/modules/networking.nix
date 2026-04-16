@@ -28,7 +28,7 @@
           enable = true;
           wifi.powersave = true;
         };
-        wireless.iwd.enable = true; # needed for using impala network manager
+        # wireless.iwd.enable = true;  # needed for using impala network manager
       };
 
       # NOTE: taken from https://github.com/NixOS/nixpkgs/blob/ed142ab1b3a092c4d149245d0c4126a5d7ea00b0/nixos/modules/config/networking.nix#L175
