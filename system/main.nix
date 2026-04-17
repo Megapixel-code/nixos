@@ -81,8 +81,6 @@
     })
 
     {
-      programs.nix-ld.enable = true; # TODO: remove this shit
-
       nix = {
         settings = {
           auto-optimise-store = true;
