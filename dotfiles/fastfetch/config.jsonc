@@ -5,7 +5,7 @@
       "type": "file", // Logo type: auto, builtin, small, file, etc.
       "position": "left",
       "padding": {
-         "top": 2, // Top padding
+         "top": 1, // Top padding
          "bottom": 2, // Bottom padding
          "left": 2, // Left padding
          "right": 3 // Right padding
