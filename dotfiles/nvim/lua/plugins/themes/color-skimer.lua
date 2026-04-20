@@ -68,7 +68,6 @@ return {
          "rosebones",
          "tokyobones",
          "neobones",
-         "lake-dweller",
          "base16-ashes",
          "base16-kanagawa-dragon",
          "base16-vulcan",
