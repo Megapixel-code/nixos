@@ -1,9 +1,5 @@
 return {
    {
-      "nvim-treesitter/playground",
-      event = "BufRead",
-   },
-   {
       "nvim-treesitter/nvim-treesitter",
       branch = "master",
       lazy = false,
