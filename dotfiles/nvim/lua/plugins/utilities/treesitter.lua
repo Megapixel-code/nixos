@@ -32,6 +32,9 @@ return {
             "editorconfig",
          },
 
+         indent = {
+            enable = true,
+         },
          highlight = {
             enable = true,
          },
