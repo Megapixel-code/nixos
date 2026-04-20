@@ -10,6 +10,13 @@ return {
 
       config = function()
          local capabilities = require( "cmp_nvim_lsp" ).default_capabilities()
+
+         capabilities.textDocument.foldingRange = {
+            -- for folding plugin
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+         }
+
          M = {
             { -- Lua lsp
                name = "lua_ls",
