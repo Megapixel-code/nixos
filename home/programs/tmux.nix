@@ -3,8 +3,6 @@
   ...
 }:
 {
-  home.packages = with pkgs; [ ];
-
   programs.tmux = {
     enable = true;
     baseIndex = 1;
@@ -40,7 +38,7 @@
 
       # [[ BINDS ]]
       # easely reload config file
-      bind r source-file ~/.tmux.conf \; display-message "tmux.conf reloaded."
+      bind r source-file $XDG_CONFIG_HOME/tmux/tmux.conf \; display-message "tmux.conf reloaded."
 
       # split panes using | and -
       bind | split-window -h
@@ -57,6 +55,12 @@
       bind-key 'l' if-shell "$is_vim" 'send-keys C-SPACE l' { if -F '#{pane_at_right}' ''' 'select-pane -R' }
       bind-key 'n' if-shell "$is_vim" 'send-keys C-SPACE n' { if -F '#{window_end_flag}' ''' 'select-window -n' }
       bind-key 'p' if-shell "$is_vim" 'send-keys C-SPACE p' { if 'test #{window_index} -gt #{base-index}' 'select-window -p' }
+      bind-key -T copy-mode-vi 'h' if -F '#{pane_at_left}' ''' 'select-pane -L'
+      bind-key -T copy-mode-vi 'j' if -F '#{pane_at_bottom}' ''' 'select-pane -D'
+      bind-key -T copy-mode-vi 'k' if -F '#{pane_at_top}' ''' 'select-pane -U'
+      bind-key -T copy-mode-vi 'l' if -F '#{pane_at_right}' ''' 'select-pane -R'
+      bind-key -T copy-mode-vi 'n' if -F '#{window_end_flag}' ''' 'select-window -n'
+      bind-key -T copy-mode-vi 'p' if 'test #{window_index} -gt #{base-index}' 'select-window -p'
 
       bind -n 'M-h' if-shell "$is_vim" 'send-keys M-h' 'resize-pane -L 1'
       bind -n 'M-j' if-shell "$is_vim" 'send-keys M-j' 'resize-pane -D 1'
@@ -79,7 +83,7 @@
 
       bind y run "tmux neww -c '#{pane_current_path}' yazi"
       bind E show-environment -g # show environment vars
-      bind f run "tmux neww ~/.config/scripts/tmux-session-dispensary"
+      bind f run "tmux neww $XDG_CONFIG_HOME/scripts/tmux-session-dispensary"
       bind H run "~/.config/scripts/tmux-session-dispensary $HOME"
       bind D run "~/.config/scripts/tmux-session-dispensary /etc/nixos/dotfiles/"
       bind N run "~/.config/scripts/tmux-session-dispensary /etc/nixos/"
