@@ -62,6 +62,7 @@
       typst # preview and compile
       tinymist # typstpreview
       websocat # typstpreview
+      tree-sitter # tree-sitter
     ];
   };
 }
