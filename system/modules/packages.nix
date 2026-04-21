@@ -75,7 +75,6 @@ let
         mkdir -p $HOME
       '')
       prismlauncher # minecraft
-      # factorio TODO:
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.utilities.system.enable [
       # utilities
