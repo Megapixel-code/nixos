@@ -88,7 +88,9 @@
           "<Space>" = ":mark -t<Enter>:next<Enter>";
           "v" = ":mark -t<Enter>";
           "V" = ":mark -v<Enter>";
-          "gv" = "remark<Enter>";
+          "gv" = ":remark<Enter>";
+          "zo" = ":unfold<Enter>";
+          "zc" = ":fold<Enter>";
 
           "<Esc>" = ":clear<Enter>:unmark -a<Enter>";
 
