@@ -23,7 +23,7 @@ return {
       -- INFO: test
       -- TODO : test
       signs = true,      -- show icons in the signs column
-      sign_priority = 8, -- sign priority
+      sign_priority = 0, -- sign priority
       -- keywords recognized as todo comments
       keywords = {
          FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
