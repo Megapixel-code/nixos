@@ -40,6 +40,7 @@ let
       scala
     ]
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-mango.enable [
+      mangowc
       waybar
       sunsetr
       brightnessctl
@@ -77,7 +78,8 @@ let
       prismlauncher # minecraft
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.utilities.system.enable [
-      # utilities
+      man-pages
+      glibcInfo
       gnumake
       cmake
       gcc
@@ -98,7 +100,6 @@ let
       wl-clipboard
       inotify-tools
       ffmpeg
-      # lynx # see html in terminal; TODO: dependency of neomutt maybe not needed
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.utilities.user.enable [
       ncpamixer # audio TUI control
@@ -111,14 +112,9 @@ let
       pass-wayland # password manager
     ]);
 
-  unstablePackages =
-    with pkgs-unstable;
-    [
-      # always on
-    ]
-    ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-mango.enable [
-      mangowc
-    ]);
+  unstablePackages = with pkgs-unstable; [
+    # always on
+  ];
 in
 {
   # required for:
