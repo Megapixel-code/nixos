@@ -19,7 +19,7 @@ return {
 
    opts = {
       provider_selector = function()
-         return { "lsp", "indent" }
+         return { "lsp" --[[ , "indent" ]] }
       end,
       fold_virt_text_handler = function( virtText, lnum, endLnum, width, truncate )
          local newVirtText = {}
