@@ -8,6 +8,7 @@ return {
    opts = {
       -- if you want to open yazi instead of netrw, see below for more info
       open_for_directories = false,
+      floating_window_scaling_factor = 1,
       hooks = {
          yazi_opened = function( preselected_path, yazi_buffer_id, config )
             -- remove escaping the terminal for the yazi buffer
