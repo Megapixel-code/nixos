@@ -11,7 +11,7 @@ return {
       vim.o.foldlevelstart = 99
       vim.o.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:"
       vim.o.foldenable = true
-      vim.o.statuscolumn = "%s%l %C"
+      vim.o.statuscolumn = "%s%l %C "
 
       vim.keymap.set( "n", "zR", require( "ufo" ).openAllFolds )
       vim.keymap.set( "n", "zM", require( "ufo" ).closeAllFolds )
