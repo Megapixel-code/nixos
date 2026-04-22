@@ -68,7 +68,10 @@ let
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.editors.enable [
       inkscape # pdf/svg editor
       gimp3
-      davinci-resolve
+      (makeWrapper "davinci-resolve" ''
+        HOME=$XDG_DATA_HOME/DaVinciResolve
+        mkdir -p $HOME
+      '')
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.games.enable [
       (makeWrapper "steam" ''

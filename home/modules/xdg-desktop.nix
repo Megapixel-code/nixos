@@ -3,7 +3,6 @@
   pkgs,
   ...
 }:
-
 {
   nix.settings = {
     # makes nix follow xdg base dir specification
