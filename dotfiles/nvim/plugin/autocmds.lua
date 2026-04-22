@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd( "TextYankPost", {
    end,
 } )
 
+
 -- [[ Auto-format ("lint") on save ]]
 vim.api.nvim_create_autocmd( "BufWritePre", {
    group = vim.api.nvim_create_augroup( "formatting", { clear = false } ),
@@ -25,6 +26,7 @@ vim.api.nvim_create_autocmd( "BufWritePre", {
    end,
 } )
 
+
 -- [[ options when opening a terminal ]]
 vim.api.nvim_create_autocmd( "TermOpen", {
    group = vim.api.nvim_create_augroup( "term-open", { clear = true } ),
@@ -35,40 +37,40 @@ vim.api.nvim_create_autocmd( "TermOpen", {
    end,
 } )
 
--- [[ restore cursor position when opening file ]]
-vim.api.nvim_create_autocmd( "BufReadPost", {
+
+-- [[ keep folding and cursor pos on nvim quit ]]
+local fold_augroup           = vim.api.nvim_create_augroup( "config.folds", { clear = true } )
+vim.opt.viewoptions          = { "folds", "cursor" }
+vim.g.ignored_view_filetypes = {}
+
+vim.api.nvim_create_autocmd( "BufWinLeave", {
+   group = fold_augroup,
+   pattern = "?*",
+   desc = "Save view",
    callback = function( args )
-      -- we want the cursor on top when commiting messages
-      if (vim.bo.ft == "gitcommit") then
-         return
+      local buftype = vim.api.nvim_get_option_value( "buftype", { buf = args.buf } )
+      local filetype = vim.api.nvim_get_option_value( "filetype", { buf = args.buf } )
+      if buftype == "" and filetype ~= ""                                        -- check if real file buffer
+         and not string.match( vim.api.nvim_buf_get_name( args.buf ), "^/tmp" )  -- check if not a temp file
+         and not vim.tbl_contains( vim.g.ignored_view_filetypes, filetype ) then -- check if not explicitly excluded
+         vim.cmd.mkview( { mods = { emsg_silent = true } } )
       end
-
-      local mark = vim.api.nvim_buf_get_mark( args.buf, '"' ) -- last position when exited the buffer
-      local line_count = vim.api.nvim_buf_line_count( args.buf )
-
-      -- if the last position is out of bounds
-      if mark[1] <= 0 or mark[1] > line_count then
-         return
-      end
-
-      vim.api.nvim_win_set_cursor( 0, mark )
-
-      -- if we are in terminal mode (important if we are in yazi)
-      if (vim.api.nvim_get_mode().mode == "t") then
-         return
-      end
-
-      -- defer centering so its applyed after render
-      vim.schedule( function()
-         vim.cmd( "normal! zz" )
-      end )
    end,
 } )
+
+vim.api.nvim_create_autocmd( "BufWinEnter", {
+   group = fold_augroup,
+   pattern = "?*",
+   desc = "Restore view",
+   command = "silent! loadview",
+} )
+
 
 -- [[ resize splits when window size changes ]]
 vim.api.nvim_create_autocmd( "VimResized", {
    command = "wincmd =",
 } )
+
 
 -- [[ treesitter syntax highlighting on config files ]]
 vim.api.nvim_create_autocmd( "BufRead", {
@@ -77,6 +79,7 @@ vim.api.nvim_create_autocmd( "BufRead", {
       vim.bo.filetype = "dosini"
    end,
 } )
+
 
 -- [[ document-higligting ]]
 local hover_highlight_group = vim.api.nvim_create_augroup( "hover-highlight", { clear = false } )
@@ -106,8 +109,8 @@ vim.api.nvim_create_autocmd( { "CursorMoved", "CursorMovedI" }, {
    end,
 } )
 
--- [[ help menu ]]
 
+-- [[ help menu ]]
 vim.api.nvim_create_autocmd( "FileType", {
    pattern = "help",
    callback = function()
