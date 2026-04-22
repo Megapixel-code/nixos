@@ -1,5 +1,15 @@
 return {
-   "megapixel-code/gruber-darker.nvim",
+   "blazkowolf/gruber-darker.nvim",
 
-   -- dir = "~/documents/projects/gruber-darker.nvim",
+   opts = {
+      bold = false,
+      italic = {
+         strings = false,
+         comments = false,
+         operators = false,
+         folds = false,
+      },
+      undercurl = true,
+      underline = true,
+   },
 }
