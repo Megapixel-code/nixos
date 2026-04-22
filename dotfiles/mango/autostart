@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
 # obs
 # FIXME: remove line after https://github.com/mangowm/mango/releases/tag/0.12.4 ?
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots &> dev/null
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots &> /dev/null
 
 # notify
-swaync &> dev/null &
+swaync &> /dev/null &
 
 # bar
-"$XDG_CONFIG_HOME/scripts/toggle_waybar" &> dev/null &
+"$XDG_CONFIG_HOME/scripts/toggle_waybar" &> /dev/null &
 
 # blue light filter
-sunsetr &> dev/null &
+sunsetr &> /dev/null &
 
 # deezer
-# deezer-enhanced &>dev/null  &
+# deezer-enhanced &>/dev/null  &
 
 # wallpaper
-"$XDG_CONFIG_HOME/scripts/pscircle_bg" &> dev/null &
+"$XDG_CONFIG_HOME/scripts/pscircle_bg" &> /dev/null &
 
 # start tmux
-"$XDG_CONFIG_HOME/scripts/tmux-session-dispensary" "$HOME" &> dev/null &
+"$XDG_CONFIG_HOME/scripts/tmux-session-dispensary" "$HOME" &> /dev/null &
 
 # remove trash files older than 100 days
-find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {} \; &> dev/null &
+find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {} \; &> /dev/null &
