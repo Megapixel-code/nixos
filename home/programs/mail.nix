@@ -29,12 +29,12 @@
         home.path = lib.mkOption {
           description = "isync home folder";
           type = lib.types.str;
-          default = "${config.xdg.configHome}/isync/";
+          default = "${config.xdg.configHome}/isync";
         };
         maildir.path = lib.mkOption {
           description = "path of maildir WITH NO / AT THE END";
           type = lib.types.str;
-          default = "${config.home.homeDirectory}/.mail";
+          default = "${config.xdg.dataHome}/mail";
         };
       };
     };

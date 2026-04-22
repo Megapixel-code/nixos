@@ -31,8 +31,6 @@
         XDG_PICTURES_DIR = "$HOME/pictures";
         XDG_DOWNLOAD_DIR = "$HOME/downloads";
         XDG_CONFIG_DIR = "/etc/xdg";
-        MAIL = "$XDG_DATA_HOME/mail";
-        MAILDIR = "$XDG_DATA_HOME/mail";
         HISTFILE = "$XDG_STATE_HOME/bash/history";
 
         # partialy suported
