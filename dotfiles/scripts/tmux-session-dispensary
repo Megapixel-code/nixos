@@ -25,12 +25,12 @@ SK_THEME=(
 	--border="plain"
 	--tabstop=3
 	--prompt="λ "
-	--preview="LC_COLLATE=C ls -lAhpv --group-directories-first --time-style=iso --color=always $HOME/{}"
+	--preview="LC_COLLATE=C ls -lAhpv --group-directories-first --time-style=iso --color=always {}"
 	--preview-window="right:60%"
 )
 
 DIRS=(
-	"$HOME/"
+	"/etc/nixos/dotfiles/"
 	"$HOME/documents/"
 	"$HOME/documents/projects/"
 	"$HOME/documents/git/"
@@ -40,10 +40,7 @@ if [[ $# -eq 1 ]]; then
 	selected=$1
 else
 	selected=$(find "${DIRS[@]}" -maxdepth 1 -mindepth 1 -type d -not -path "*/.*" \
-		| sed "s|^$HOME/||" \
 		| sk "${SK_THEME[@]}")
-
-	[[ $selected ]] && selected="$HOME/$selected"
 fi
 
 [[ ! $selected ]] && exit 0
