@@ -1,13 +1,34 @@
 {
   pkgs,
+  user,
+  lib,
+  config,
   ...
 }:
 {
-  programs.neovim = {
-    enable = true;
+  options = {
+    extraPackages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [ ];
+    };
+  };
 
-    withRuby = false;
-    withPython3 = false;
+  config = lib.mkIf config.home-manager.users.${user}.my.pkgs.utilities.system.enable {
+    environment.systemPackages =
+      let
+        extraWrapperArgs = [
+          "--suffix"
+          "PATH"
+          ":"
+          (lib.makeBinPath config.extraPackages)
+        ];
+      in
+      [
+        (pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped {
+          wrapperArgs = extraWrapperArgs;
+          wrapRc = false;
+        })
+      ];
 
     extraPackages = with pkgs; [
       git
