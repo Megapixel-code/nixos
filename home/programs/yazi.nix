@@ -63,6 +63,13 @@
         };
       };
       icon = {
+        prepend_conds = [
+          {
+            "if" = "dir";
+            "text" = "";
+            "fg" = "blue";
+          }
+        ];
         dirs = [
           {
             name = ".config";
