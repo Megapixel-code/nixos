@@ -6,6 +6,8 @@
   programs.firefox = {
     enable = config.my.pkgs.apps.enable;
 
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
+
     # https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265
     # ---- POLICIES ----
     # Check about:policies#documentation for options.
