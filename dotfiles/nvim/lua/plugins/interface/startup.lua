@@ -82,10 +82,6 @@ local drawings = {
       "____\\_/___||_|_____((__^_))____________________\\_\\|/_/_ ",
    },
    {
-      "                                                              ",
-      "                                                              ",
-      "                                                              ",
-      "                                                              ",
       "    ⢀⣀⣤⣤⣤⠤⢤⣤⣤⣤⣤⣄⣀⡀           ⢀⣠⣤⣄⡀            ⣀⣀⣀⣤⣤⣤⣤⣤⣤⣤⣤⣀⡀   ",
       " ⢀⣤⠚⠩⠁⡄ ⠠⣤⠒⠒⣂ ⢈⣨⣭⣿⠛⠶⣦⣤⣄⡀   ⢠⣾⡟⠉⠉⠝⠿⠇    ⢀⣠⡤⠔⠒⣻⠟⠋⠩⠉⢁⣀⡀  ⣶  ⠙⡛⠷  ",
       " ⠸⢟⡠⠒⢊⡤  ⠋⣠ ⠈⣉⣉⣉⣉⣀⣛⣿⡒⠭⡿⢿⣷⣤⣤⣀⣽⣇⣴⠆⣴⡃⢀⣠⣤⠴⣚⣫⡥ ⠒⠛⠁⣀⣉⣉⣙⢏⡉  ⢀⣼⣤⣜⠳⡦⠂  ",
@@ -99,7 +95,6 @@ local drawings = {
       "                            ⠘⣷⠁                               ",
       "                             ⠙⣤                               ",
       "                              ⠛⠂                              ",
-      "                                                              ",
    },
    {
       "*::::::*::::::::****:::;;;;;:;;::;;:;;::;",
@@ -109,6 +104,19 @@ local drawings = {
 
 
 local function drawing_stuff( drawing )
+   local padding_top = ((vim.o.lines - #drawing) / 2) - 2
+   local padding_right = 9
+
+   for _ = 1, padding_top do
+      table.insert( drawing, 1, "" )
+   end
+   local padding_string = string.rep( " ", padding_right )
+   for i, line in ipairs( drawing ) do
+      for _ = 1, padding_right do
+         drawing[i] = line .. padding_string
+      end
+   end
+
    return {
       type = "text",
       oldfiles_directory = false,
@@ -131,28 +139,6 @@ local function random_drawing()
 end
 
 
-local function content()
-   return {
-      type = "mapping",
-      oldfiles_directory = false,
-      align = "center",
-      fold_section = false,
-      title = "Basic Commands",
-      margin = 0,
-      content = {
-         { " Search File", "Telescope find_files", "<leader>sf" },
-         { "󰍉 Search Grep", "lua require('config.telescope.multigrep').multigrep()", "<leader>sg" },
-         { "󰉋 Yazi Change CWD", "lua require('yazi').yazi({change_neovim_cwd_on_close = true})", "<leader>yc" },
-         { " Search Themes", "ColorSkimerToggle", "<leader>sc" },
-         { "󰋖 Search Help", "Telescope help_tags", "<leader>sh" },
-      },
-      highlight = "String",
-      default_color = "",
-      oldfiles_amount = 0,
-   }
-end
-
-
 return {
    "startup-nvim/startup.nvim",
    dependencies = {
@@ -161,29 +147,13 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
    },
    opts = {
-      header = random_drawing(), -- drawing section
-      body = content(),          -- main section
+      drawing = random_drawing(), -- drawing section
       options = {
-         mapping_keys = true,    -- display mapping
-
-         -- if < 1 fraction of screen width
-         -- if > 1 numbers of column
-         cursor_column = 0.5,
-
-         after = function() -- function that gets executed at the end
-            -- <lua commands>
+         after = function()       -- function that gets executed at the end
+            vim.wo.cursorline = false
          end,
-         empty_lines_between_mappings = true, -- add an empty line between mapping/commands
-         disable_statuslines = true,          -- disable status-, buffer- and tablines
-         paddings = { 3, 4 },                 -- amount of empty lines before each section (must be equal to amount of sections)
+         disable_statuslines = true, -- disable status-, buffer- and tablines
       },
-      mappings = {
-         execute_command = "<CR>",
-         open_file = "o",
-         open_file_split = "<c-o>",
-         open_section = "<TAB>",
-         open_help = "?",
-      },
-      parts = { "header", "body" }, -- all sections in order
+      parts = { "drawing" },         -- all sections in order
    },
 }
