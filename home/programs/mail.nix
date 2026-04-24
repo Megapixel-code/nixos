@@ -9,11 +9,6 @@
   options = {
     my.aerc = {
       accounts = {
-        total_gmails = lib.mkOption {
-          description = "Indicate the number of gmails accounts you have in your sops secrets";
-          type = lib.types.int;
-          default = 0;
-        };
         total_vfemails = lib.mkOption {
           description = "Indicate the number of vfemails accounts you have in your sops secrets";
           type = lib.types.int;
@@ -44,7 +39,6 @@
 
   config = lib.mkIf config.my.pkgs.apps.enable {
     my.aerc.accounts = {
-      total_gmails = 5;
       total_vfemails = 1;
     };
 
@@ -228,19 +222,11 @@
 
     sops =
       let
-        placeholder = config.sops.placeholder;
+        var_placeholder = config.sops.placeholder;
 
-        numberize = cfg: if cfg > 0 then map builtins.toString (lib.range 1 cfg) else [ ];
-        all_gmail_nb = numberize config.my.aerc.accounts.total_gmails;
+        numberize = cfg: if cfg > 0 then map toString (lib.range 1 cfg) else [ ];
         all_vfemail_nb = numberize config.my.aerc.accounts.total_vfemails;
 
-        one_gmail_secret = nb: {
-          "mails/gmail_${nb}/mail" = { };
-          "mails/gmail_${nb}/mailUrlEncoded" = { };
-          "mails/gmail_${nb}/clientId" = { };
-          "mails/gmail_${nb}/clientSecret" = { };
-          "mails/gmail_${nb}/refreshTokenUrlEncoded" = { };
-        };
         one_vfemail_secret = nb: {
           "mails/vfemail_${nb}/mail" = { };
           "mails/vfemail_${nb}/mailUrlEncoded" = { };
@@ -248,35 +234,17 @@
         };
 
         map_concat = one_m: all_m_nb: lib.strings.concatStringsSep "\n" (map one_m all_m_nb);
-        one_gmail = nb: ''
-          [${placeholder."mails/gmail_${nb}/mail"}]
-          source   = imaps+oauthbearer://${placeholder."mails/gmail_${nb}/mailUrlEncoded"}:${
-            placeholder."mails/gmail_${nb}/refreshTokenUrlEncoded"
-          }@imap.gmail.com:993?client_id=${placeholder."mails/gmail_${nb}/clientId"}&client_secret=${
-            placeholder."mails/gmail_${nb}/clientSecret"
-          }&token_endpoint=https%3A%2F%2Foauth2.googleapis.com%2Ftoken
-          outgoing = smtps+oauthbearer://${placeholder."mails/gmail_${nb}/mailUrlEncoded"}:${
-            placeholder."mails/gmail_${nb}/refreshTokenUrlEncoded"
-          }@smtp.gmail.com:465?client_id=${placeholder."mails/gmail_${nb}/clientId"}&client_secret=${
-            placeholder."mails/gmail_${nb}/clientSecret"
-          }&token_endpoint=https%3A%2F%2Foauth2.googleapis.com%2Ftoken
-          from          = ${user} <${placeholder."mails/gmail_${nb}/mail"}>
-          default       = INBOX
-          folders-sort  = INBOX
-          postpone      = [Gmail]/Drafts
-          cache-headers = true
-        '';
         one_vfemail = nb: ''
-          [${placeholder."mails/vfemail_${nb}/mail"}]
+          [${var_placeholder."mails/vfemail_${nb}/mail"}]
           source        = maildir://${config.my.aerc.isync.maildir.path}/${
-            placeholder."mails/vfemail_${nb}/mail"
+            var_placeholder."mails/vfemail_${nb}/mail"
           }
-          outgoing      = smtps://${placeholder."mails/vfemail_${nb}/mailUrlEncoded"}:${
-            placeholder."mails/vfemail_${nb}/password"
+          outgoing      = smtps://${var_placeholder."mails/vfemail_${nb}/mailUrlEncoded"}:${
+            var_placeholder."mails/vfemail_${nb}/password"
           }@smtp.vfemail.net:465
-          from          = ${user} <${placeholder."mails/vfemail_${nb}/mail"}>
+          from          = ${user} <${var_placeholder."mails/vfemail_${nb}/mail"}>
           check-mail-cmd = ${config.sops.templates."mbsyncscript".path} ${
-            placeholder."mails/vfemail_${nb}/mail"
+            var_placeholder."mails/vfemail_${nb}/mail"
           }
           check-mail-timeout = 30s
           check-mail         = 30s
@@ -287,41 +255,33 @@
         '';
 
         one_mbsync = nb: ''
-          IMAPAccount ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
+          IMAPAccount ${var_placeholder."mails/vfemail_${nb}/mail"}
           Host imap.vfemail.net
           Port 993
-          User ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
-          Pass ${config.sops.placeholder."mails/vfemail_${nb}/password"}
+          User ${var_placeholder."mails/vfemail_${nb}/mail"}
+          Pass ${var_placeholder."mails/vfemail_${nb}/password"}
           TLSType IMAPS
 
-          IMAPStore ${config.sops.placeholder."mails/vfemail_${nb}/mail"}-remote
-          Account ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
+          IMAPStore ${var_placeholder."mails/vfemail_${nb}/mail"}-remote
+          Account ${var_placeholder."mails/vfemail_${nb}/mail"}
 
-          MaildirStore ${config.sops.placeholder."mails/vfemail_${nb}/mail"}-local
-          Path ${config.my.aerc.isync.maildir.path}/${config.sops.placeholder."mails/vfemail_${nb}/mail"}/
-          INBOX ${config.my.aerc.isync.maildir.path}/${
-            config.sops.placeholder."mails/vfemail_${nb}/mail"
-          }/INBOX
-          Trash ${config.my.aerc.isync.maildir.path}/${
-            config.sops.placeholder."mails/vfemail_${nb}/mail"
-          }/Trash
+          MaildirStore ${var_placeholder."mails/vfemail_${nb}/mail"}-local
+          Path ${config.my.aerc.isync.maildir.path}/${var_placeholder."mails/vfemail_${nb}/mail"}/
+          INBOX ${config.my.aerc.isync.maildir.path}/${var_placeholder."mails/vfemail_${nb}/mail"}/INBOX
+          Trash ${config.my.aerc.isync.maildir.path}/${var_placeholder."mails/vfemail_${nb}/mail"}/Trash
           SubFolders Verbatim
 
-          Channel ${config.sops.placeholder."mails/vfemail_${nb}/mail"}
-          Far :${config.sops.placeholder."mails/vfemail_${nb}/mail"}-remote:
-          Near :${config.sops.placeholder."mails/vfemail_${nb}/mail"}-local:
+          Channel ${var_placeholder."mails/vfemail_${nb}/mail"}
+          Far :${var_placeholder."mails/vfemail_${nb}/mail"}-remote:
+          Near :${var_placeholder."mails/vfemail_${nb}/mail"}-local:
           Patterns *
           Create Both
           Remove Both
           SyncState *
         '';
         one_mbsync_script = nb: ''
-          mkdir -m 700 -p ${config.my.aerc.isync.maildir.path}/${
-            config.sops.placeholder."mails/vfemail_${nb}/mail"
-          }
-          mbsync -c ${config.my.aerc.isync.home.path}/mbsyncrc ${
-            config.sops.placeholder."mails/vfemail_${nb}/mail"
-          }
+          mkdir -m 700 -p ${config.my.aerc.isync.maildir.path}/${var_placeholder."mails/vfemail_${nb}/mail"}
+          mbsync -c ${config.my.aerc.isync.home.path}/mbsyncrc ${var_placeholder."mails/vfemail_${nb}/mail"}
         '';
 
         all_secrets = lib.mergeAttrsList (
@@ -330,12 +290,10 @@
               "mails/emailbook" = { };
             }
           ]
-          ++ (map one_gmail_secret all_gmail_nb)
           ++ (map one_vfemail_secret all_vfemail_nb)
         );
         all_emails = lib.concatStringsSep "\n" [
           (map_concat one_vfemail all_vfemail_nb)
-          (map_concat one_gmail all_gmail_nb)
         ];
         all_mbsync = lib.concatStringsSep "\n" [
           (map_concat one_mbsync all_vfemail_nb)
