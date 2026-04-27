@@ -125,8 +125,8 @@
         ];
         "application/pdf" = [
           # .pdf
-          "org.inkscape.Inkscape.desktop"
           "firefox.desktop"
+          "org.inkscape.Inkscape.desktop"
         ];
         "image/svg+xml" = [
           # svg
