@@ -91,7 +91,12 @@ return {
             vim.o.background = "dark"
          end,
       },
-      post_preview = {},
+      post_preview = {
+         ["*"] = function()
+            vim.api.nvim_set_hl( 0, "FoldColumn",     { link = "SignColumn" } )
+            vim.api.nvim_set_hl( 0, "CursorLineFold", { link = "CursorLineNr" } )
+         end,
+      },
 
       pre_save = {},
       post_save = {
