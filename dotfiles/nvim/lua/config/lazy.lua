@@ -24,6 +24,7 @@ require( "lazy" ).setup( {
       { import = "plugins.motions" },
       { import = "plugins.themes" },
       { import = "plugins.utilities" },
+      { import = "plugins.bulshit" },
    },
    change_detection = {
       enabled = false,

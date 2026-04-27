@@ -183,3 +183,20 @@ vim.keymap.set( "n", "<leader>ys", "<cmd>Yazi toggle<cr>", { desc = "Resume the 
 vim.keymap.set( "n", "<leader>yc", function()
                    require( "yazi" ).yazi( { change_neovim_cwd_on_close = true } )
                 end, { desc = "Yazi Change CWD" } )
+
+
+-- [cellular automaton]
+vim.keymap.set( "n", "<leader><BS>", function()
+                   local cellular_automaton_animations = {}
+                   local animations                    = require( "cellular-automaton" ).animations
+
+                   for animation_name, _ in pairs( animations ) do
+                      table.insert( cellular_automaton_animations, animation_name )
+                   end
+
+                   math.randomseed( os.time() )
+                   local random_nb = math.random( 1, #cellular_automaton_animations )
+
+                   require( "cellular-automaton" ).start_animation( cellular_automaton_animations[random_nb] )
+                end
+, { desc = "lol" } )
