@@ -185,18 +185,30 @@ vim.keymap.set( "n", "<leader>yc", function()
                 end, { desc = "Yazi Change CWD" } )
 
 
+local enable_cellular_automaton = function()
+   local exclude_animations = {
+      "scramble",
+   }
+
+   local cellular_automaton = require( "cellular-automaton" );
+
+   local buftype = vim.api.nvim_get_option_value( "buftype", { buf = 0 } );
+   local filetype = vim.api.nvim_get_option_value( "filetype", { buf = 0 } );
+   if (buftype == "nofile" and filetype == "") then
+      return;
+   end
+
+   local cellular_automaton_animations = {};
+   local animations                    = cellular_automaton.animations;
+   for animation_name, _ in pairs( animations ) do
+      if (not vim.list_contains( exclude_animations, animation_name )) then
+         table.insert( cellular_automaton_animations, animation_name );
+      end
+   end
+
+   math.randomseed( os.time() )
+   local random_nb = math.random( 1, #cellular_automaton_animations )
+   cellular_automaton.start_animation( cellular_automaton_animations[random_nb] )
+end
 -- [cellular automaton]
-vim.keymap.set( "n", "<leader><BS>", function()
-                   local cellular_automaton_animations = {}
-                   local animations                    = require( "cellular-automaton" ).animations
-
-                   for animation_name, _ in pairs( animations ) do
-                      table.insert( cellular_automaton_animations, animation_name )
-                   end
-
-                   math.randomseed( os.time() )
-                   local random_nb = math.random( 1, #cellular_automaton_animations )
-
-                   require( "cellular-automaton" ).start_animation( cellular_automaton_animations[random_nb] )
-                end
-, { desc = "lol" } )
+vim.keymap.set( "n", "<leader><BS>", enable_cellular_automaton, { desc = "lol" } )
