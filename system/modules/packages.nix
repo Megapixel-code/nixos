@@ -88,6 +88,7 @@ let
       gcc
       curl
       wget
+      nh
       sops
       age # simple encryption
       bear # used to create compilation db for clang
