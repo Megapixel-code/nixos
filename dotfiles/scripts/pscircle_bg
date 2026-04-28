@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # start daemon :
-awww-daemon > /dev/null 2>&1 &
+awww-daemon &> /dev/null &
 
 cmd_output=$(mmsg -O | grep "eDP-1")
 
