@@ -4,24 +4,10 @@
   lib,
   pkgs,
   pkgs-unstable,
+  my_lib,
   ...
 }:
 let
-  makeWrapper =
-    name: script_content:
-    pkgs.symlinkJoin {
-      name = name;
-      paths = [
-        (pkgs.writers.writeBashBin name (
-          script_content
-          + ''
-            exec ${pkgs.${name}}/bin/${name} "$@"
-          ''
-        ))
-        pkgs.${name}
-      ];
-    };
-
   stablePackages =
     with pkgs;
     [
@@ -68,16 +54,24 @@ let
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.editors.enable [
       inkscape # pdf/svg editor
       gimp3
-      (makeWrapper "davinci-resolve" ''
-        HOME=$XDG_DATA_HOME/DaVinciResolve
-        mkdir -p $HOME
-      '')
+      (my_lib.makeWrapper {
+        package = pkgs.davinci-resolve;
+        package_exec = "davinci-resolve";
+        script = ''
+          HOME=$XDG_DATA_HOME/DaVinciResolve
+          mkdir -p $HOME
+        '';
+      })
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.games.enable [
-      (makeWrapper "steam" ''
-        HOME=$XDG_DATA_HOME/Steam
-        mkdir -p $HOME
-      '')
+      (my_lib.makeWrapper {
+        package = pkgs.steam;
+        package_exec = "steam";
+        script = ''
+          HOME=$XDG_DATA_HOME/Steam
+          mkdir -p $HOME
+        '';
+      })
       prismlauncher # minecraft
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.utilities.system.enable [
@@ -121,9 +115,6 @@ let
   ];
 in
 {
-  # required for:
-  #   yazi's 7zz
-  #   factorio
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile.

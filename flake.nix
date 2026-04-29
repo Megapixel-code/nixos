@@ -2,12 +2,10 @@
   description = "My nixos configuration";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11-small";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     home-manager = {
-      # url = "github:nix-community/home-manager/release-25.11";
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -32,8 +30,14 @@
     let
       system = "x86_64-linux";
       user = "ivan";
-      # pkgs = nixpkgs.legacyPackages.${system};
       pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
+      my_lib = import ./lib {
+        inherit
+          user
+          system
+          inputs
+          ;
+      };
 
       allPersonalHostNames = [
         "nixos-main"
@@ -60,6 +64,7 @@
               let
                 sharedSpecialArgs = {
                   inherit inputs;
+                  inherit my_lib;
                   inherit user;
                   inherit hostName;
                   inherit allServerHostNames;
