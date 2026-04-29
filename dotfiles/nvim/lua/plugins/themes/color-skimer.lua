@@ -1,14 +1,14 @@
 --- Automatically change terminal theme on quit
 local function autoscheme()
    if not vim.g.terminal_color_0 then
-      print( "autoscheme: unable to change terminal theme, no terminal_color" )
-      return
-   end
+      print( "autoscheme: unable to change terminal theme, no terminal_color" );
+      return;
+   end;
 
    -- addapted from :
    -- https://stackoverflow.com/questions/27870682/how-to-get-the-background-color-in-vim
-   local bg = vim.api.nvim_exec2( 'echo synIDattr(hlID("Normal"), "bg")', { output = true } ).output
-   local fg = vim.api.nvim_exec2( 'echo synIDattr(hlID("Normal"), "fg")', { output = true } ).output
+   local bg = vim.api.nvim_exec2( 'echo synIDattr(hlID("Normal"), "bg")', { output = true } ).output;
+   local fg = vim.api.nvim_exec2( 'echo synIDattr(hlID("Normal"), "fg")', { output = true } ).output;
 
    local content =
       "background " .. bg .. "\n" ..
@@ -31,21 +31,21 @@ local function autoscheme()
       "color12 " .. vim.g.terminal_color_12 .. "\n" ..
       "color13 " .. vim.g.terminal_color_13 .. "\n" ..
       "color14 " .. vim.g.terminal_color_14 .. "\n" ..
-      "color15 " .. vim.g.terminal_color_15 .. "\n"
+      "color15 " .. vim.g.terminal_color_15 .. "\n";
 
-   local xdg_config_home = os.getenv( "XDG_CONFIG_HOME" )
-   local file, err = io.open( xdg_config_home .. "/kitty/current-theme.conf", "w" )
+   local xdg_config_home = os.getenv( "XDG_CONFIG_HOME" );
+   local file, err = io.open( xdg_config_home .. "/kitty/current-theme.conf", "w" );
 
    if file then
-      file:write( content )
-      file:close()
+      file:write( content );
+      file:close();
    else
-      print( "error opening a file : err ", err )
-      return
-   end
+      print( "error opening a file : err ", err );
+      return;
+   end;
 
-   vim.cmd( "silent !kill -SIGUSR1 $(pidof kitty)" ) -- reload terminal
-end
+   vim.cmd( "silent !kill -SIGUSR1 $(pidof kitty)" ); -- reload terminal
+end;
 
 return {
    -- "Megapixel-code/color-skimer.nvim",
@@ -88,21 +88,21 @@ return {
 
       pre_preview = {
          ["*"] = function()
-            vim.o.background = "dark"
+            vim.o.background = "dark";
          end,
       },
       post_preview = {
          ["*"] = function()
-            vim.api.nvim_set_hl( 0, "FoldColumn",     { link = "SignColumn" } )
-            vim.api.nvim_set_hl( 0, "CursorLineFold", { link = "CursorLineNr" } )
+            vim.api.nvim_set_hl( 0, "FoldColumn",     { link = "SignColumn" } );
+            vim.api.nvim_set_hl( 0, "CursorLineFold", { link = "CursorLineNr" } );
          end,
       },
 
       pre_save = {},
       post_save = {
          ["*"] = function()
-            autoscheme()
+            autoscheme();
          end,
       },
    },
-}
+};

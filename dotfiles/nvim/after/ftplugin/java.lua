@@ -1,15 +1,15 @@
 -- config taken from
 -- https://github.com/exosyphon/nvim/blob/0aa48126c7f35f2009c5a695860a53c8a450485f/ftplugin/java.lua#L1
-local home = os.getenv( "HOME" )
-local workspace_path = home .. "/.local/share/nvim/jdtls-workspace/"
-local project_name = vim.fn.fnamemodify( vim.fn.getcwd(), ":p:h:t" )
-local workspace_dir = workspace_path .. project_name
+local home = os.getenv( "HOME" );
+local workspace_path = home .. "/.local/share/nvim/jdtls-workspace/";
+local project_name = vim.fn.fnamemodify( vim.fn.getcwd(), ":p:h:t" );
+local workspace_dir = workspace_path .. project_name;
 
-local status, jdtls = pcall( require, "jdtls" )
+local status, jdtls = pcall( require, "jdtls" );
 if not status then
-   return
-end
-local extendedClientCapabilities = jdtls.extendedClientCapabilities
+   return;
+end;
+local extendedClientCapabilities = jdtls.extendedClientCapabilities;
 
 local config = {
    cmd = {
@@ -62,27 +62,27 @@ local config = {
    init_options = {
       bundles = {},
    },
-}
-require( "jdtls" ).start_or_attach( config )
+};
+require( "jdtls" ).start_or_attach( config );
 
-vim.keymap.set( "n", "<leader>co",  "<Cmd>lua require'jdtls'.organize_imports()<CR>",   { desc = "Organize Imports" } )
-vim.keymap.set( "n", "<leader>crv", "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = "Extract Variable" } )
+vim.keymap.set( "n", "<leader>co",  "<Cmd>lua require'jdtls'.organize_imports()<CR>",   { desc = "Organize Imports" } );
+vim.keymap.set( "n", "<leader>crv", "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = "Extract Variable" } );
 vim.keymap.set(
    "v",
    "<leader>crv",
    "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
    { desc = "Extract Variable" }
-)
-vim.keymap.set( "n", "<leader>crc", "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = "Extract Constant" } )
+);
+vim.keymap.set( "n", "<leader>crc", "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = "Extract Constant" } );
 vim.keymap.set(
    "v",
    "<leader>crc",
    "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>",
    { desc = "Extract Constant" }
-)
+);
 vim.keymap.set(
    "v",
    "<leader>crm",
    "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
    { desc = "Extract Method" }
-)
+);

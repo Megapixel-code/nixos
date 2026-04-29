@@ -19,7 +19,7 @@ return {
          theme = { zen = {}, pearl = {}, ink = {}, all = {} },
       },
       overrides = function( colors ) -- add/modify highlights
-         return {}
+         return {};
       end,
       background = {          -- map the value of 'background' option to a theme
          dark = "ink",        -- try "zen", "mist" or "pearl" !
@@ -27,4 +27,4 @@ return {
       },
       foreground = "default", -- "default" or "saturated" (can also be a table like background)
    },
-}
+};

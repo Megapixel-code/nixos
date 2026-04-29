@@ -1,7 +1,7 @@
-local multigrep = require( "config.telescope.multigrep" )
+local multigrep = require( "config.telescope.multigrep" );
 
-local M = {}
+local M = {};
 
-M.multigrep = multigrep.multigrep
+M.multigrep = multigrep.multigrep;
 
-return M
+return M;

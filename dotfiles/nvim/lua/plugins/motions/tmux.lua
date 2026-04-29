@@ -69,4 +69,4 @@ return {
          enable_default_keybindings = false,
       },
    },
-}
+};

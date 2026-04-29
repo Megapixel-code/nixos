@@ -4,4 +4,4 @@ return {
    opts = {
       italics = false,
    },
-}
+};

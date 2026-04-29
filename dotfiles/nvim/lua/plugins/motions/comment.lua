@@ -34,4 +34,4 @@ return {
       pre_hook = nil,  -- Function to call before (un)comment
       post_hook = nil, -- Function to call after (un)comment
    },
-}
+};

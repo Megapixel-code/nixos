@@ -38,4 +38,4 @@ return {
       notify_no_formatters = true,
       -- log_level = vim.log.levels.TRACE,
    },
-}
+};

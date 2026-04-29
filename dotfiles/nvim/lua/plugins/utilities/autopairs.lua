@@ -3,10 +3,10 @@ return {
    "windwp/nvim-autopairs",
    event = "InsertEnter",
    opts = {
-      enabled = function( bufnr ) return true end, -- control if auto-pairs should be enabled when attaching to a buffer
+      enabled = function( bufnr ) return true; end, -- control if auto-pairs should be enabled when attaching to a buffer
       disable_filetype = { "TelescopePrompt" },
-      disable_in_macro = true,                     -- disable when recording or executing a macro
-      disable_in_visualblock = false,              -- disable when insert after visual block mode
+      disable_in_macro = true,                      -- disable when recording or executing a macro
+      disable_in_visualblock = false,               -- disable when insert after visual block mode
       disable_in_replace_mode = true,
       ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
       enable_moveright = true,
@@ -21,4 +21,4 @@ return {
       map_c_h = false, -- Map the <C-h> key to delete a pair
       map_c_w = false, -- map <c-w> to delete a pair if possible
    },
-}
+};

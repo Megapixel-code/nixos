@@ -1,7 +1,7 @@
 return {
    "uga-rosa/ccc.nvim",
    config = function()
-      local ccc = require( "ccc" )
+      local ccc = require( "ccc" );
 
       ccc.setup( {
          highlighter = {
@@ -30,9 +30,9 @@ return {
             ccc.picker.css_oklab,
             ccc.picker.css_oklch,
          },
-      } )
+      } );
       -- set the hex to uppercase
-      ccc.output.hex.setup( { uppercase = true } )
-      ccc.output.hex_short.setup( { uppercase = true } )
+      ccc.output.hex.setup( { uppercase = true } );
+      ccc.output.hex_short.setup( { uppercase = true } );
    end,
-}
+};

@@ -1,1 +1,1 @@
-vim.o.expandtab = false -- use tabs
+vim.o.expandtab = false; -- use tabs

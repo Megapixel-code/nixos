@@ -1,3 +1,3 @@
 return {
    "Mofiqul/vscode.nvim",
-}
+};

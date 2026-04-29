@@ -3,4 +3,4 @@ return {
    opts = {
       -- TODO: options
    },
-}
+};

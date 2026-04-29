@@ -12,4 +12,4 @@ return {
       undercurl = true,
       underline = true,
    },
-}
+};

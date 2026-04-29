@@ -1,3 +1,3 @@
 return {
    "slugbyte/lackluster.nvim",
-}
+};

@@ -3,4 +3,4 @@ return {
    opts = {
       bright_comments = true,
    },
-}
+};

@@ -31,20 +31,20 @@ return {
             "gitcommit",
             "editorconfig",
             "query",
-         }
-         require( "nvim-treesitter" ).install( ensure_installed )
+         };
+         require( "nvim-treesitter" ).install( ensure_installed );
 
          vim.api.nvim_create_autocmd( "FileType", {
             pattern = ensure_installed,
             callback = function()
-               vim.treesitter.start()
-               vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+               vim.treesitter.start();
+               vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()";
             end,
-         } )
+         } );
       end,
 
       opts = {
          install_dir = vim.fn.stdpath( "data" ) .. "/treesitter",
       },
    },
-}
+};

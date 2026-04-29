@@ -62,6 +62,6 @@ return {
    },
 
    keys = {
-      { "zk", mode = { "n", "x", "o" }, function() require( "flash" ).jump() end, desc = "Flash" },
+      { "zk", mode = { "n", "x", "o" }, function() require( "flash" ).jump(); end, desc = "Flash" },
    },
-}
+};

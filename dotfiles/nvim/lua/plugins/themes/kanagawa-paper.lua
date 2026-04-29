@@ -27,4 +27,4 @@ return {
       -- check the `groups/plugins` directory for the exact names
       plugins = {},
    },
-}
+};

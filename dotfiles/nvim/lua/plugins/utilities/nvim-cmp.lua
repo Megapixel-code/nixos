@@ -18,13 +18,13 @@ return {
    event = { "InsertEnter", "CmdlineEnter" },
 
    config = function()
-      local cmp = require( "cmp" )
-      local cmp_autopairs = require( "nvim-autopairs.completion.cmp" )
-      local lspkind = require( "lspkind" )
+      local cmp = require( "cmp" );
+      local cmp_autopairs = require( "nvim-autopairs.completion.cmp" );
+      local lspkind = require( "lspkind" );
 
       cmp.setup( {
          expand = function( args )
-            vim.snippet.expand( args.body ) -- we set this to luasnip in snippets
+            vim.snippet.expand( args.body ); -- we set this to luasnip in snippets
          end,
          window = {
             completion = cmp.config.window.bordered( { max_height = 8 } ),
@@ -53,7 +53,7 @@ return {
          formatting = {
             fields = { "abbr", "icon", "kind", "menu" },
             format = lspkind.cmp_format( {
-               with_text = false;
+               with_text = false,
                menu = {
                   nvim_lsp = "[lsp]",
                   buffer = "[buf]",
@@ -63,7 +63,7 @@ return {
                },
             } ),
          },
-      } )
+      } );
 
       cmp.setup.filetype( "gitcommit", {
          sources = cmp.config.sources( {
@@ -71,14 +71,14 @@ return {
             { name = "git" },
             { name = "buffer" },
          } ),
-      } )
+      } );
 
       cmp.setup.cmdline( { "/", "?" }, {
          mapping = cmp.mapping.preset.cmdline(),
          sources = {
             { name = "buffer" },
          },
-      } )
+      } );
 
       cmp.setup.cmdline( ":", {
          mapping = cmp.mapping.preset.cmdline(),
@@ -92,18 +92,18 @@ return {
                q = true,
                w = true,
                wq = true,
-            }
+            };
             -- first word of the cmdline
-            local cmd = vim.fn.getcmdline():match( "%S+" )
+            local cmd = vim.fn.getcmdline():match( "%S+" );
 
             -- true if cmd not disabled
             -- else call and return cmp.close() which return false
-            return not disabled_commands[cmd] or cmp.close()
+            return not disabled_commands[cmd] or cmp.close();
          end,
          -- matching = { disallow_symbol_nonprefix_matching = false },
-      } )
+      } );
 
       -- add parentheses after selecting function
-      cmp.event:on( "confirm_done", cmp_autopairs.on_confirm_done() )
+      cmp.event:on( "confirm_done", cmp_autopairs.on_confirm_done() );
    end,
-}
+};

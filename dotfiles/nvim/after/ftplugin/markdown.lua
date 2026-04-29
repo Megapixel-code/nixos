@@ -1,1 +1,1 @@
-vim.o.spell = true -- enable spelling
+vim.o.spell = true; -- enable spelling

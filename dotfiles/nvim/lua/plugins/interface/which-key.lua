@@ -23,7 +23,7 @@ return {
       -- Only used by enabled xo mapping modes.
       --- @param ctx { mode: string, operator: string }
       defer = function( ctx )
-         return ctx.mode == "V" or ctx.mode == "<C-V>"
+         return ctx.mode == "V" or ctx.mode == "<C-V>";
       end,
       plugins = {
          marks = true,           -- shows a list of your marks on ' and `
@@ -85,7 +85,7 @@ return {
       replace = { -- Functions/Lua Patterns for formatting the labels
          key = {
             function( key )
-               return require( "which-key.view" ).format( key )
+               return require( "which-key.view" ).format( key );
             end,
             -- { "<Space>", "SPC" },
          },
@@ -161,7 +161,7 @@ return {
       {
          "<leader>?",
          function()
-            require( "which-key" ).show( { global = false } )
+            require( "which-key" ).show( { global = false } );
          end,
          desc = "Buffer Local Keymaps (which-key)",
       },
@@ -170,6 +170,6 @@ return {
       require( "which-key" ).add( {         -- [ add groups ]
          { "<leader>s", group = "Search" }, -- search group
          { "g",         group = "Go" },     -- Go group
-      } )
+      } );
    end,
-}
+};

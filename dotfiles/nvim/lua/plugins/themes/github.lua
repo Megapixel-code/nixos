@@ -40,4 +40,4 @@ return {
       specs = {},
       groups = {},
    },
-}
+};

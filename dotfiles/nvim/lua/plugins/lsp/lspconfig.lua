@@ -9,13 +9,13 @@ return {
       },
 
       config = function()
-         local capabilities = require( "cmp_nvim_lsp" ).default_capabilities()
+         local capabilities = require( "cmp_nvim_lsp" ).default_capabilities();
 
          capabilities.textDocument.foldingRange = {
             -- for folding plugin
             dynamicRegistration = false,
             lineFoldingOnly = true,
-         }
+         };
 
          M = {
             { -- Lua lsp
@@ -111,12 +111,12 @@ return {
                   capabilities = capabilities,
                },
             },
-         }
+         };
 
          for _, server in ipairs( M ) do
-            vim.lsp.config( server.name, server.args )
-            vim.lsp.enable( server.name )
-         end
+            vim.lsp.config( server.name, server.args );
+            vim.lsp.enable( server.name );
+         end;
       end,
    },
-}
+};

@@ -33,4 +33,4 @@ return {
          builtin_variables = "none",
       },
    },
-}
+};
