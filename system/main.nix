@@ -132,8 +132,6 @@
         extraGroups = [
           "wheel" # Administration group
         ];
-        shell = pkgs.zsh;
-        ignoreShellProgramCheck = true; # NOTE: fine because programs.zsh.enable = true; in home
       };
 
       # Some programs need SUID wrappers, can be configured further or are

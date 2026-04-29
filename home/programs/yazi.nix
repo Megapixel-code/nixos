@@ -5,8 +5,6 @@
 {
   programs.yazi = {
     enable = true;
-    # enableZshIntegration = true; # if you have zsh configured in homemanager
-    # shellWrapperName = "y";
 
     extraPackages = with pkgs; [
       udisks # dependency of mount plugin

@@ -12,6 +12,7 @@ let
     with pkgs;
     [
       # always on
+      zsh
       git
       tmux
       home-manager
