@@ -16,7 +16,8 @@ in
     {
       package,
       package_exec,
-      script,
+      script ? "",
+      extra_flags ? "",
     }:
     pkgs.symlinkJoin {
       name = package;
@@ -24,7 +25,7 @@ in
         (pkgs.writers.writeBashBin package_exec (
           script
           + ''
-            exec ${package}/bin/${package_exec} "$@"
+            exec ${package}/bin/${package_exec} ${extra_flags} "$@"
           ''
         ))
         package
