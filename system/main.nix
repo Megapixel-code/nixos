@@ -17,6 +17,7 @@
   imports = [
     ./secrets.nix
     (import-tree ./modules)
+    (import-tree ./programs)
   ];
 
   config = lib.mkMerge [
