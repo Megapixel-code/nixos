@@ -93,6 +93,7 @@ let
       sops
       age # simple encryption
       bear # used to create compilation db for clang
+      direnv
 
       ntfs3g # read/fix ntfs file systems
 

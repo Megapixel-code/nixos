@@ -111,4 +111,6 @@ PS1+="⌎ ${red}λ${reset} "
 
 printf '\e[5 q' # set cursor to line
 
+eval "$(direnv hook bash)"
+
 [[ ! ${BLE_VERSION-} ]] || ble-attach
