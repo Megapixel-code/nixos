@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <unistd.h>
 
 FILE *f;
@@ -104,6 +105,13 @@ void parser(list_device_info *list_device_info)
       type       = lib_get_next_str_char(buffer, &index, ' ');
       state      = lib_get_next_str_char(buffer, &index, ' ');
       connection = lib_get_next_str_char(buffer, &index, '\n');
+
+      // remove trailing whitespaces in connection
+      index -= 2;
+      while ( buffer[index] != '\0' && buffer[index] == ' ' ) {
+         buffer[index] = '\0';
+         index--;
+      }
 
       device_info *device_info = get_device_info(list_device_info, device);
 
