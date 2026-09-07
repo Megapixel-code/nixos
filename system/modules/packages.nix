@@ -92,7 +92,6 @@ let
       nh
       sops
       age # simple encryption
-      devenv
       bear # used to create compilation db for clang
 
       ntfs3g # read/fix ntfs file systems
