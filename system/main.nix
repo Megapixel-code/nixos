@@ -95,8 +95,8 @@
 
       nix = {
         package = pkgs.lixPackageSets.stable.lix;
+        optimise.automatic = true;
         settings = {
-          auto-optimise-store = true;
           trusted-users = [ "${user}" ];
           allowed-users = [ "${user}" ];
         };
