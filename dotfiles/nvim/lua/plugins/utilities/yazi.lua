@@ -17,11 +17,6 @@ return {
       -- if you want to open yazi instead of netrw, see below for more info
       open_for_directories = false,
       floating_window_scaling_factor = 1,
-      hooks = {
-         yazi_opened = function( preselected_path, yazi_buffer_id, config )
-            vim.api.nvim_buf_del_keymap( 0, "t", "<Esc><Esc>" );
-         end,
-      },
       keymaps = {
          show_help = "<f1>",
       },

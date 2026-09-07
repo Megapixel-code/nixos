@@ -33,17 +33,6 @@ vim.api.nvim_create_autocmd( "BufWritePre", {
 } );
 
 
--- [[ options when opening a terminal ]]
-vim.api.nvim_create_autocmd( "TermOpen", {
-   group = vim.api.nvim_create_augroup( "term-open", { clear = true } ),
-   callback = function()
-      vim.api.nvim_buf_set_keymap( 0, "t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" } );
-      vim.opt.number = false;
-      vim.opt.relativenumber = false;
-   end,
-} );
-
-
 -- [[ keep folding and cursor pos on nvim quit ]]
 local fold_augroup           = vim.api.nvim_create_augroup( "config.folds", { clear = true } );
 vim.opt.viewoptions          = { "folds", "cursor" };

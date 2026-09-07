@@ -4,15 +4,11 @@ local term_state = {
 };
 
 local create_win = function()
-   local buf = nil;
-   if vim.api.nvim_buf_is_valid( term_state.buf ) then
-      buf = term_state.buf;
-   else
-      buf = vim.api.nvim_create_buf( true, true );
-      term_state.buf = buf;
+   if ! vim.api.nvim_buf_is_valid( term_state.buf ) then
+      term_state.buf = vim.api.nvim_create_buf( true, true );
    end;
 
-   term_state.win = vim.api.nvim_open_win( buf, true, {
+   term_state.win = vim.api.nvim_open_win( term_state.buf, true, {
       split = "below",
       win = -1,
       height = 15,
@@ -32,3 +28,14 @@ local toggle_terminal = function()
 end;
 
 vim.api.nvim_create_user_command( "ToggleTerminal", toggle_terminal, {} );
+vim.keymap.set( "n", "<leader>t<BS>", toggle_terminal, { desc = "Toggle terminal" } );
+
+local autocmd_group = vim.api.nvim_create_augroup( "CustomTerm", { clear = true } );
+vim.api.nvim_create_autocmd( "TermOpen", {
+   group = autocmd_group,
+   callback = function()
+      vim.api.nvim_buf_set_keymap( 0, "t", "<C-H>", "<C-\\><C-n>", { desc = "Exit terminal mode" } );
+      vim.opt.number = false;
+      vim.opt.relativenumber = false;
+   end,
+} );
