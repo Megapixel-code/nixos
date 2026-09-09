@@ -11,9 +11,6 @@ sunsetr &> /dev/null &
 # wallpaper
 "$XDG_CONFIG_HOME/scripts/pscircle_bg" &> /dev/null &
 
-# start tmux
-"$XDG_CONFIG_HOME/scripts/tmux-session-dispensary" "$HOME" &> /dev/null &
-
 if [[ $(hostname) == "nixos-main" ]]; then
 	mmsg dispatch focusmon,"HDMI-A-1" &> /dev/null
 	mmsg dispatch view,9 &> /dev/null

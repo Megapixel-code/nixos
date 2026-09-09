@@ -99,12 +99,20 @@ lavat() {
 	command lavat "$gravity" -c"$ball_color" -k"$rim_color" -r"$radius" "$chars" "$party"
 }
 
+# start tmux
+
+t() {
+	if ! tmux has-session; then
+		"$XDG_CONFIG_HOME/scripts/tmux-session-dispensary" "$HOME" &> /dev/null &
+	fi
+	tmux attach
+}
+
 alias ssh="kitten ssh"
 alias v="nvim"
 alias ff="fastfetch"
 alias gs="git status"
 alias lt='tree -a --dirsfirst -I .git/'
 alias python="python3"
-alias t="tmux attach"
 alias c="clear"
 alias nrs="nh os switch /etc/nixos --ask"
