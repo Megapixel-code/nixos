@@ -119,7 +119,15 @@ let
   ];
 in
 {
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "deezer-desktop"
+      "steam"
+      "steam-unwrapped"
+      "nvidia-settings"
+      "nvidia-x11"
+    ];
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
