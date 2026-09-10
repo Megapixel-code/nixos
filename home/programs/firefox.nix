@@ -14,6 +14,34 @@
     policies = {
       DefaultDownloadDirectory = "\${home}/downloads/"; # Set the default download directory
       DownloadDirectory = "\${home}/downloads/"; # Set and lock the download directory
+      SearchEngines = {
+        Default = "DuckDuckGo";
+        PreventInstalls = true;
+        Add = [
+          {
+            Name = "Nix_Search";
+            URLTemplate = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
+            Method = "GET";
+            IconURL = "https://search.nixos.org/images/nixos-logomark-default-gradient-none.svg";
+            Alias = "!n";
+          }
+          {
+            Name = "Wikipedia";
+            URLTemplate = "https://en.wikipedia.org/w/index.php?search={searchTerms}";
+            Method = "GET";
+            IconURL = "https://en.wikipedia.org/static/favicon/wikipedia.ico";
+            Alias = "!w";
+          }
+        ];
+        Remove = [
+          "Bing"
+          "Google"
+          "Perplexity"
+          "Qwant"
+          "Startpage"
+          "Wikipedia (en)"
+        ];
+      };
 
       # ---- EXTENSIONS ----
       # Check about:support for extension/add-on ID strings.
