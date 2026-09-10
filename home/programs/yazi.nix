@@ -11,7 +11,6 @@
       util-linux # dependency of mount plugin
       trash-cli # dependency of restore plugin
       git
-      dragon-drop # drag and drop
       nushell # sudo
     ];
 

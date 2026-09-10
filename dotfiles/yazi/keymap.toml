@@ -15,8 +15,6 @@ prepend_keymap = [
 
   { desc = "Archive selected files", on = ["c", "o"], run = "plugin compress" },
 
-  { desc = "Drag and drop file", on = "<C-n>", run = "shell 'dragon-drop -x -i -T \"$1\"' --confirm" },
-
   { desc = "Sudo paste", on = ["S", "p"], run = "plugin sudo -- paste" },
   { desc = "Sudo rename", on = ["S", "r"], run = "plugin sudo -- rename" },
   { desc = "Sudo create", on = ["S", "a"], run = "plugin sudo -- create" },
